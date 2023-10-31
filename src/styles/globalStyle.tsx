@@ -7,6 +7,10 @@ const globalCSS = css`
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
+  #__next {
+    height: 100vh;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
