@@ -2,8 +2,8 @@ import { ROUTES } from "./route";
 
 export const navList = [
   {
-    name: "아파트 검색",
-    link: ROUTES.SEARCH_APT,
+    name: "AI 검색",
+    link: ROUTES.AI_SEARCH,
   },
   {
     name: "실거래가 조회",

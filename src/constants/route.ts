@@ -1,5 +1,5 @@
 export const ROUTES = {
-  SEARCH_APT: "/search-apt",
+  AI_SEARCH: "/ai-search",
   PRICE: "/price",
   REGISTER_APT: "/register-apt",
   CHAT: "/chat",

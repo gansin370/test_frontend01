@@ -1,10 +1,106 @@
-import NavigationBar from "@/components/NavigationBar";
+import { getRem } from "@/styles/commonStyle";
+import { Theme } from "@emotion/react";
+import { css } from "@emotion/react";
+import Interior1 from "public/images/interior1.jpg";
+import Interior2 from "public/images/interior2.jpg";
+import Image from "../components/Image";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <>
-      <NavigationBar />
-      <main></main>
-    </>
+    <div css={containerCSS}>
+      <main>
+        <div css={titleWrapCSS}>
+          <h1 css={titleCSS}>
+            Metaverse를 통한
+            <br /> 집 구조 확인
+          </h1>
+        </div>
+
+        <div css={mediaContainerCSS}>
+          <video css={videoCSS} autoPlay loop muted>
+            <source
+              src="https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div css={imageContainerCSS}>
+            <div css={imageWrapCSS}>
+              <Image src={Interior1} alt="인테리어 사진" fill />
+            </div>
+            <div css={imageWrapCSS}>
+              <Image src={Interior2} alt="인테리어 사진" fill />
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
   );
 }
+
+const containerCSS = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 90vh;
+`;
+
+const titleWrapCSS = css`
+  padding: ${getRem(20)} ${getRem(24)};
+`;
+
+const titleCSS = (theme: Theme) => css`
+  text-align: center;
+
+  br {
+    ${theme.media.desktopAndTablet} {
+      display: none;
+    }
+  }
+`;
+
+const mediaContainerCSS = (theme: Theme) => css`
+  display: flex;
+  gap: ${getRem(24)};
+  justify-content: center;
+
+  ${theme.media.mobile} {
+    flex-direction: column;
+  }
+`;
+
+const videoCSS = (theme: Theme) => css`
+  width: 100vw;
+
+  /* ${theme.media.tablet} {
+    width: ${getRem(600)};
+  }
+
+  ${theme.media.desktop} {
+    width: ${getRem(900)};
+  } */
+
+  ${theme.media.desktopAndTablet} {
+    width: 60vw;
+  }
+`;
+
+const imageContainerCSS = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const imageWrapCSS = (theme: Theme) => css`
+  width: 100vw;
+  position: relative;
+  aspect-ratio: 40/25;
+
+  margin: ${getRem(20)} 0;
+
+  ${theme.media.desktopAndTablet} {
+    width: 25vw;
+    margin: 0;
+  }
+`;

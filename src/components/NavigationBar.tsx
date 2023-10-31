@@ -19,7 +19,9 @@ export default function NavigationBar() {
 
   return (
     <div css={containerCSS}>
-      <Image src={Logo} css={logoCSS} alt="로고" width={130} />
+      <Link href="/">
+        <Image src={Logo} css={logoCSS} alt="로고" width={130} />
+      </Link>
       <nav css={navContainerCSS}>
         {navList.map((navItem) => (
           <Link key={navItem.name} css={navItemCSS} href={navItem.link}>
@@ -57,6 +59,10 @@ const containerCSS = (theme: Theme) => css`
 
   ${theme.media.desktop} {
     padding-right: ${getRem(80)};
+  }
+
+  ${theme.media.mobile} {
+    padding: ${getRem(16)} ${getRem(24)};
   }
 `;
 
