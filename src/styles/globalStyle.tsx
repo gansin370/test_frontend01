@@ -3,7 +3,7 @@ import { Global, css } from "@emotion/react";
 const globalCSS = css`
   html {
     -webkit-touch-callout: none;
-    /* -webkit-user-select: none; */
+    -webkit-user-select: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 

@@ -1,6 +1,8 @@
 import ProgressBar from "@/components/ProgressBar";
 import ConfirmInfoView from "@/components/register-apt/ConfirmInfoView";
-import EnterAddressView from "@/components/register-apt/EnterAddress";
+import EnterAddressView, {
+  Address,
+} from "@/components/register-apt/EnterAddress";
 import EnterAdvantageView from "@/components/register-apt/EnterAdvantageView";
 import EnterAvailableMoveInDateView from "@/components/register-apt/EnterAvailableMoveInDateView";
 import EnterExtraInfoView from "@/components/register-apt/EnterExtraInfoView";
@@ -8,13 +10,19 @@ import EnterFacilityView from "@/components/register-apt/EnterFacility";
 import EnterLocationSummaryView from "@/components/register-apt/EnterLocationSummaryView";
 import EnterRoomImageView from "@/components/register-apt/EnterRoomImageView";
 import EnterRoomInfoView from "@/components/register-apt/EnterRoomInfoView";
-import EnterTransactionTypeView from "@/components/register-apt/EnterTransactionTypeView";
+import EnterTransactionTypeView, {
+  TransactionType,
+} from "@/components/register-apt/EnterTransactionTypeView";
 import SelectAptSellerTypeView, {
   AptSellerType,
 } from "@/components/register-apt/SelectAptSellerTypeView";
-import SelectRoomDirectionView from "@/components/register-apt/SelectRoomDirectionView";
+import SelectRoomDirectionView, {
+  Direction,
+} from "@/components/register-apt/SelectRoomDirectionView";
 import SelectRoomSizeView from "@/components/register-apt/SelectRoomSizeView";
-import SelectVideoView from "@/components/register-apt/SelectVideoView";
+import SelectVideoView, {
+  Video,
+} from "@/components/register-apt/SelectVideoView";
 import { getRem } from "@/styles/commonStyle";
 import { Theme, css } from "@emotion/react";
 import { useState } from "react";
@@ -29,6 +37,14 @@ export default function RegisterAptPage() {
   const [bathroomCount, setBathroomCount] = useState<number>(1);
   const [totalFloor, setTotalFloor] = useState<number | undefined>();
   const [floor, setFloor] = useState<number | undefined>();
+  const [addressInfo, setAddressInfo] = useState<Address | undefined>();
+  const [locationSummary, setLocationSummary] = useState<string>("");
+  const [transactionType, setTransactionType] = useState<TransactionType>();
+  const [roomImages, setRoomImages] = useState<File[]>();
+  const [floorPlanImages, setFloorPlanImages] = useState<File[]>();
+  const [viewImages, setViewImages] = useState<File[]>();
+  const [selectedVideo, setSelectedVideo] = useState<Video>();
+  const [roomDirection, setRoomDirection] = useState<Direction>();
 
   const getButtonDisabled = () => {
     switch (process) {
@@ -38,6 +54,24 @@ export default function RegisterAptPage() {
         return !roomSize;
       case RegisterProcess.ENTER_ROOM_INFO:
         return !totalFloor || !floor;
+      case RegisterProcess.ENTER_ADDRESS:
+        return (
+          !addressInfo?.address ||
+          !addressInfo?.detailAddress ||
+          !addressInfo?.lat ||
+          !addressInfo?.lng ||
+          !addressInfo?.address
+        );
+      case RegisterProcess.ENTER_LOCATION_SUMMARY:
+        return !locationSummary;
+      case RegisterProcess.ENTER_TRANSACTION_TYPE:
+        return !transactionType;
+      case RegisterProcess.ENTER_ROOM_IMAGES:
+        return !roomImages || roomImages?.length < 3;
+      case RegisterProcess.SELECT_VIDEO:
+        return !selectedVideo;
+      case RegisterProcess.SELECT_ROOM_DIRECTION:
+        return !roomDirection;
       default:
         return false;
     }
@@ -87,17 +121,45 @@ export default function RegisterAptPage() {
           onChangeFloor={setFloor}
         />
       )}
-      {process === RegisterProcess.ENTER_ADDRESS && <EnterAddressView />}
+      {process === RegisterProcess.ENTER_ADDRESS && (
+        <EnterAddressView
+          address={addressInfo}
+          onChangeAddress={setAddressInfo}
+        />
+      )}
       {process === RegisterProcess.ENTER_LOCATION_SUMMARY && (
-        <EnterLocationSummaryView />
+        <EnterLocationSummaryView
+          locationSummary={locationSummary}
+          onChangeLocationSummary={setLocationSummary}
+        />
       )}
       {process === RegisterProcess.ENTER_TRANSACTION_TYPE && (
-        <EnterTransactionTypeView />
+        <EnterTransactionTypeView
+          transactionType={transactionType}
+          onChangeTransactionType={setTransactionType}
+        />
       )}
-      {process === RegisterProcess.ENTER_ROOM_IMAGES && <EnterRoomImageView />}
-      {process === RegisterProcess.SELECT_VIDEO && <SelectVideoView />}
+      {process === RegisterProcess.ENTER_ROOM_IMAGES && (
+        <EnterRoomImageView
+          roomImage={roomImages}
+          floorPlanImage={floorPlanImages}
+          viewImage={viewImages}
+          onChangeRoomImage={setRoomImages}
+          onChangeFloorPlanImage={setFloorPlanImages}
+          onChangeViewImage={setViewImages}
+        />
+      )}
+      {process === RegisterProcess.SELECT_VIDEO && (
+        <SelectVideoView
+          selectedVideo={selectedVideo}
+          onChangeVideo={setSelectedVideo}
+        />
+      )}
       {process === RegisterProcess.SELECT_ROOM_DIRECTION && (
-        <SelectRoomDirectionView />
+        <SelectRoomDirectionView
+          direction={roomDirection}
+          onChangeDirection={setRoomDirection}
+        />
       )}
       {process === RegisterProcess.ENTER_EXTRA_INFO && <EnterExtraInfoView />}
       {process === RegisterProcess.ENTER_AVAILABLE_MOVE_IN_DATE && (
@@ -142,6 +204,7 @@ const containerCSS = css`
   justify-content: space-between;
   flex-direction: column;
   padding-bottom: ${getRem(20)};
+  overflow: hidden;
 `;
 
 const buttonContainerCSS = css`

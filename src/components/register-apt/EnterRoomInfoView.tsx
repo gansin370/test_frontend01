@@ -109,6 +109,10 @@ const inputWrapperCSS = css`
     margin-bottom: ${getRem(8)};
     font-size: ${getRem(14)};
   }
+
+  input {
+    height: ${getRem(41)};
+  }
 `;
 
 const roomSizeCSS = css`

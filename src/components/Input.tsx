@@ -15,6 +15,7 @@ export default function Input({ ...rest }: InputProps) {
 const inputCSS = css`
   width: 100%;
   height: 100%;
+  min-height: ${getRem(41)};
   border: 1px solid #e5e5e5;
   padding: 0 ${getRem(12)};
   border-radius: ${getRem(8)};
