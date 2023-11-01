@@ -5,7 +5,9 @@ import EnterAddressView, {
 } from "@/components/register-apt/EnterAddress";
 import EnterAdvantageView from "@/components/register-apt/EnterAdvantageView";
 import EnterAvailableMoveInDateView from "@/components/register-apt/EnterAvailableMoveInDateView";
-import EnterExtraInfoView from "@/components/register-apt/EnterExtraInfoView";
+import EnterExtraInfoView, {
+  ExtraInfoSelectOption,
+} from "@/components/register-apt/EnterExtraInfoView";
 import EnterFacilityView from "@/components/register-apt/EnterFacility";
 import EnterLocationSummaryView from "@/components/register-apt/EnterLocationSummaryView";
 import EnterRoomImageView from "@/components/register-apt/EnterRoomImageView";
@@ -28,7 +30,9 @@ import { Theme, css } from "@emotion/react";
 import { useState } from "react";
 
 export default function RegisterAptPage() {
-  const [process, setProcess] = useState(RegisterProcess.SELECT_SELLER_TYPE);
+  const [process, setProcess] = useState(
+    RegisterProcess.ENTER_AVAILABLE_MOVE_IN_DATE
+  );
   const [aptSellerType, setAptSellerType] = useState<
     AptSellerType | undefined
   >();
@@ -45,6 +49,17 @@ export default function RegisterAptPage() {
   const [viewImages, setViewImages] = useState<File[]>();
   const [selectedVideo, setSelectedVideo] = useState<Video>();
   const [roomDirection, setRoomDirection] = useState<Direction>();
+  const [loanAvailable, setLoanAvailable] = useState<ExtraInfoSelectOption>(
+    ExtraInfoSelectOption.AVAILABLE
+  );
+  const [petAvailable, setPetAvailable] = useState<ExtraInfoSelectOption>(
+    ExtraInfoSelectOption.AVAILABLE
+  );
+  const [parkingAvailable, setParkingAvailable] =
+    useState<ExtraInfoSelectOption>(ExtraInfoSelectOption.AVAILABLE);
+  const [availableMoveInDate, setAvailableMoveInDate] = useState<Date>(
+    new Date()
+  );
 
   const getButtonDisabled = () => {
     switch (process) {
@@ -161,9 +176,21 @@ export default function RegisterAptPage() {
           onChangeDirection={setRoomDirection}
         />
       )}
-      {process === RegisterProcess.ENTER_EXTRA_INFO && <EnterExtraInfoView />}
+      {process === RegisterProcess.ENTER_EXTRA_INFO && (
+        <EnterExtraInfoView
+          loan={loanAvailable}
+          onChangeLoan={setLoanAvailable}
+          pet={petAvailable}
+          onChangePet={setPetAvailable}
+          parking={parkingAvailable}
+          onChangeParking={setParkingAvailable}
+        />
+      )}
       {process === RegisterProcess.ENTER_AVAILABLE_MOVE_IN_DATE && (
-        <EnterAvailableMoveInDateView />
+        <EnterAvailableMoveInDateView
+          availableMoveInDate={availableMoveInDate}
+          onChangeAvailableMoveInDate={setAvailableMoveInDate}
+        />
       )}
       {process === RegisterProcess.ENTER_FACILITY && <EnterFacilityView />}
       {process === RegisterProcess.ENTER_ADVANTAGE && <EnterAdvantageView />}
@@ -204,7 +231,7 @@ const containerCSS = css`
   justify-content: space-between;
   flex-direction: column;
   padding-bottom: ${getRem(20)};
-  overflow: hidden;
+  overflow-y: scroll;
 `;
 
 const buttonContainerCSS = css`

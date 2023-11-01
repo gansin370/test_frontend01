@@ -11,7 +11,6 @@ interface AddressButtonProps {
 }
 
 export default function AddressButton({ onSelectAddress }: AddressButtonProps) {
-  //클릭 시 수행될 팝업 생성 함수
   const open = useDaumPostcodePopup(postcodeScriptUrl);
 
   const handleComplete = (data: Address) => {
