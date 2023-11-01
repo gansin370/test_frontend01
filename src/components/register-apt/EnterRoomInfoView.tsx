@@ -2,26 +2,18 @@ import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
 import Input from "../Input";
 import Select from "../Select";
+import { useRegisterAptStore } from "@/store/register-apt";
 
-interface EnterRoomInfoViewProps {
-  roomSize?: number;
-  onChangeRoomCount: (roomCount: number) => void;
-  onChangeBathroomCount: (bathroomCount: number) => void;
-  totalFloor: number | undefined;
-  onChangeTotalFloor: (totalFloor: number | undefined) => void;
-  floor: number | undefined;
-  onChangeFloor: (floor: number | undefined) => void;
-}
-
-export default function EnterRoomInfoView({
-  roomSize,
-  onChangeRoomCount,
-  onChangeBathroomCount,
-  totalFloor,
-  onChangeTotalFloor,
-  floor,
-  onChangeFloor,
-}: EnterRoomInfoViewProps) {
+export default function EnterRoomInfoView() {
+  const {
+    roomSize,
+    setRoomCount,
+    setBathroomCount,
+    floor,
+    setFloor,
+    totalFloor,
+    setTotalFloor,
+  } = useRegisterAptStore();
   return (
     <div css={containerCSS}>
       <h2>매물 정보를 입력해주세요.</h2>
@@ -29,7 +21,7 @@ export default function EnterRoomInfoView({
       <p css={roomSizeCSS}>
         <label>방 크기 </label>
         <br />
-        {roomSize === 50 ? "50평 이상" : `${roomSize}평대`}
+        {`${roomSize}평`}
       </p>
 
       <div css={rowCSS}>
@@ -39,7 +31,7 @@ export default function EnterRoomInfoView({
             <br />
             <Select
               options={countOptions}
-              onChange={(e) => onChangeRoomCount(Number(e.target.value))}
+              onChange={(e) => setRoomCount(Number(e.target.value))}
             />
           </label>
         </div>
@@ -49,7 +41,7 @@ export default function EnterRoomInfoView({
             <br />
             <Select
               options={countOptions}
-              onChange={(e) => onChangeBathroomCount(Number(e.target.value))}
+              onChange={(e) => setBathroomCount(Number(e.target.value))}
             />
           </label>
         </div>
@@ -62,11 +54,9 @@ export default function EnterRoomInfoView({
             <Input
               type="number"
               placeholder="건물 전체 층"
-              value={totalFloor}
+              value={totalFloor ?? ""}
               onChange={(e) =>
-                onChangeTotalFloor(
-                  e.target.value ? Number(e.target.value) : undefined
-                )
+                setTotalFloor(e.target.value ? Number(e.target.value) : null)
               }
             />
           </label>
@@ -77,11 +67,9 @@ export default function EnterRoomInfoView({
             <Input
               type="number"
               placeholder="층수"
-              value={floor}
+              value={floor ?? ""}
               onChange={(e) =>
-                onChangeFloor(
-                  e.target.value ? Number(e.target.value) : undefined
-                )
+                setFloor(e.target.value ? Number(e.target.value) : null)
               }
             />
           </label>

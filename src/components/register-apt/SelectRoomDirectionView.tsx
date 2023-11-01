@@ -1,3 +1,4 @@
+import { useRegisterAptStore } from "@/store/register-apt";
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
 import { useState } from "react";
@@ -13,15 +14,8 @@ export enum Direction {
   북서향 = "북서향",
 }
 
-interface SelectRoomDirectionViewProps {
-  direction: Direction | undefined;
-  onChangeDirection: (direction: Direction | undefined) => void;
-}
-
-export default function SelectRoomDirectionView({
-  direction,
-  onChangeDirection,
-}: SelectRoomDirectionViewProps) {
+export default function SelectRoomDirectionView() {
+  const { roomDirection, setRoomDirection } = useRegisterAptStore();
   return (
     <div css={containerCSS}>
       <h2>매물의 방향을 선택해주세요.</h2>
@@ -30,56 +24,56 @@ export default function SelectRoomDirectionView({
       </p>
       <div css={rowCSS}>
         <button
-          css={buttonCSS(direction === Direction.남향)}
-          onClick={() => onChangeDirection(Direction.남향)}
+          css={buttonCSS(roomDirection === Direction.남향)}
+          onClick={() => setRoomDirection(Direction.남향)}
         >
           남향
         </button>
         <button
-          css={buttonCSS(direction === Direction.동향)}
-          onClick={() => onChangeDirection(Direction.동향)}
+          css={buttonCSS(roomDirection === Direction.동향)}
+          onClick={() => setRoomDirection(Direction.동향)}
         >
           동향
         </button>
       </div>
       <div css={rowCSS}>
         <button
-          css={buttonCSS(direction === Direction.서향)}
-          onClick={() => onChangeDirection(Direction.서향)}
+          css={buttonCSS(roomDirection === Direction.서향)}
+          onClick={() => setRoomDirection(Direction.서향)}
         >
           서향
         </button>
         <button
-          css={buttonCSS(direction === Direction.북향)}
-          onClick={() => onChangeDirection(Direction.북향)}
+          css={buttonCSS(roomDirection === Direction.북향)}
+          onClick={() => setRoomDirection(Direction.북향)}
         >
           북향
         </button>
       </div>
       <div css={rowCSS}>
         <button
-          css={buttonCSS(direction === Direction.남동향)}
-          onClick={() => onChangeDirection(Direction.남동향)}
+          css={buttonCSS(roomDirection === Direction.남동향)}
+          onClick={() => setRoomDirection(Direction.남동향)}
         >
           남동향
         </button>
         <button
-          css={buttonCSS(direction === Direction.남서향)}
-          onClick={() => onChangeDirection(Direction.남서향)}
+          css={buttonCSS(roomDirection === Direction.남서향)}
+          onClick={() => setRoomDirection(Direction.남서향)}
         >
           남서향
         </button>
       </div>
       <div css={rowCSS}>
         <button
-          css={buttonCSS(direction === Direction.북서향)}
-          onClick={() => onChangeDirection(Direction.북서향)}
+          css={buttonCSS(roomDirection === Direction.북서향)}
+          onClick={() => setRoomDirection(Direction.북서향)}
         >
           북서향
         </button>
         <button
-          css={buttonCSS(direction === Direction.북동향)}
-          onClick={() => onChangeDirection(Direction.북동향)}
+          css={buttonCSS(roomDirection === Direction.북동향)}
+          onClick={() => setRoomDirection(Direction.북동향)}
         >
           북동향
         </button>

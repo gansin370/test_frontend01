@@ -4,6 +4,7 @@ import AddressButton from "../AddressButton";
 import Input from "../Input";
 import { ChangeEvent } from "react";
 import axios from "axios";
+import { useRegisterAptStore } from "@/store/register-apt";
 
 export interface Address {
   address?: string;
@@ -12,15 +13,8 @@ export interface Address {
   lng?: string;
 }
 
-interface EnterAddressViewProps {
-  address: Address | undefined;
-  onChangeAddress: (address: Address) => void;
-}
-
-export default function EnterAddressView({
-  address,
-  onChangeAddress,
-}: EnterAddressViewProps) {
+export default function EnterAddressView() {
+  const { addressInfo, setAddressInfo } = useRegisterAptStore();
   const onSelectAddress = async (_address: string) => {
     try {
       // 위경도 데이터를 가져오기 위해 필요
@@ -38,8 +32,8 @@ export default function EnterAddressView({
         alert("주소 정보 요청 중 에러가 발생했습니다.");
         return;
       }
-      onChangeAddress({
-        ...address,
+      setAddressInfo({
+        ...addressInfo,
         address: _address,
         lat: document.y,
         lng: document.x,
@@ -50,8 +44,8 @@ export default function EnterAddressView({
   };
 
   const onChangeDetailAddress = (e: ChangeEvent<HTMLInputElement>) => {
-    onChangeAddress({
-      ...address,
+    setAddressInfo({
+      ...addressInfo,
       detailAddress: e.target.value,
     });
   };
@@ -63,12 +57,12 @@ export default function EnterAddressView({
           disabled
           placeholder="주소를 입력해주세요."
           css={inputCSS}
-          value={address?.address}
+          value={addressInfo?.address}
         />
         <AddressButton onSelectAddress={onSelectAddress} />
       </div>
       <Input
-        value={address?.detailAddress}
+        value={addressInfo?.detailAddress}
         onChange={onChangeDetailAddress}
         placeholder="상세주소를 입력해주세요."
         css={inputCSS}

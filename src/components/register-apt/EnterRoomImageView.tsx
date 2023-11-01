@@ -1,53 +1,35 @@
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
 import Image from "../Image";
+import { useRegisterAptStore } from "@/store/register-apt";
 
-interface EnterRoomImageViewProps {
-  roomImage: File[] | undefined;
-  floorPlanImage: File[] | undefined;
-  viewImage: File[] | undefined;
-  onChangeRoomImage: (images: File[]) => void;
-  onChangeFloorPlanImage: (images: File[]) => void;
-  onChangeViewImage: (images: File[]) => void;
-}
-
-export default function EnterRoomImageView({
-  roomImage,
-  floorPlanImage,
-  viewImage,
-  onChangeRoomImage,
-  onChangeFloorPlanImage,
-  onChangeViewImage,
-}: EnterRoomImageViewProps) {
-  const [roomImageThumbnail, setRoomImageThumbnail] = useState<string[]>([]);
-  const [floorPlanImageThumbnail, setFloorPlanImageThumbnail] = useState<
-    string[]
-  >([]);
-  const [viewImageThumbnail, setViewImageThumbnail] = useState<string[]>([]);
-
-  const makeThumbnail = (image: File) => {
-    var reader = new FileReader();
-
-    reader.onload = function (imageUrl) {
-      if (imageUrl.target) {
-        setRoomImageThumbnail((prev) => [
-          ...prev,
-          imageUrl.target?.result as string,
-        ]);
-      }
-    };
-
-    reader.readAsDataURL(image);
-  };
+export default function EnterRoomImageView() {
+  const {
+    roomImages,
+    setRoomImages,
+    floorPlanImages,
+    setFloorPlanImages,
+    viewImages,
+    setViewImages,
+  } = useRegisterAptStore();
+  const roomImageThumbnail =
+    roomImages?.map((image) => URL.createObjectURL(image)) || [];
+  const floorPlanImageThumbnail =
+    floorPlanImages?.map((image) => URL.createObjectURL(image)) || [];
+  const viewImageThumbnail =
+    viewImages?.map((image) => URL.createObjectURL(image)) || [];
 
   const _onChangeRoomImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
+      if (e.target.files?.length < 3) {
+        alert("이미지는 최소 3장 이상 업로드해야 합니다.");
+        return;
+      }
       if (e.target.files?.length > 20) {
         alert("이미지는 최대 20장까지 업로드 가능합니다.");
         return;
       }
-      onChangeRoomImage(Array.from(e.target.files));
+      setRoomImages(Array.from(e.target.files));
     }
   };
   const _onChangeFloorPlanImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +38,7 @@ export default function EnterRoomImageView({
         alert("이미지는 최대 20장까지 업로드 가능합니다.");
         return;
       }
-      onChangeFloorPlanImage(Array.from(e.target.files));
+      setFloorPlanImages(Array.from(e.target.files));
     }
   };
   const _onChangeViewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,36 +47,9 @@ export default function EnterRoomImageView({
         alert("이미지는 최대 20장까지 업로드 가능합니다.");
         return;
       }
-      onChangeViewImage(Array.from(e.target.files));
+      setViewImages(Array.from(e.target.files));
     }
   };
-
-  useEffect(() => {
-    if (roomImage) {
-      setRoomImageThumbnail([]);
-      roomImage.forEach((image) => {
-        makeThumbnail(image);
-      });
-    }
-  }, [roomImage, viewImage]);
-
-  useEffect(() => {
-    if (floorPlanImage) {
-      setFloorPlanImageThumbnail([]);
-      floorPlanImage.forEach((image) => {
-        makeThumbnail(image);
-      });
-    }
-  }, [floorPlanImage]);
-
-  useEffect(() => {
-    if (viewImage) {
-      setViewImageThumbnail([]);
-      viewImage.forEach((image) => {
-        makeThumbnail(image);
-      });
-    }
-  }, [viewImage]);
 
   return (
     <div css={containerCSS}>
@@ -182,6 +137,7 @@ export default function EnterRoomImageView({
 
 const containerCSS = css`
   padding: ${getRem(20)} ${getRem(24)};
+  overflow-y: scroll;
 `;
 
 const infoTextCSS = css`

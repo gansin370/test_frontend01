@@ -1,3 +1,4 @@
+import { useRegisterAptStore } from "@/store/register-apt";
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
 
@@ -6,28 +7,22 @@ export enum AptSellerType {
   HOUSE_OWNER = "집주인",
 }
 
-interface SelectAptSellerTypeViewProps {
-  selectedType: AptSellerType | undefined;
-  onSelectType: (type: AptSellerType) => void;
-}
+export default function SelectAptSellerTypeView() {
+  const { aptSellerType, setAptSellerType } = useRegisterAptStore();
 
-export default function SelectAptSellerTypeView({
-  onSelectType,
-  selectedType,
-}: SelectAptSellerTypeViewProps) {
   return (
     <div css={containerCSS}>
       <h2>누가 글을 작성하나요?</h2>
 
       <button
-        onClick={() => onSelectType(AptSellerType.TENANT)}
-        css={buttonCSS(selectedType === AptSellerType.TENANT)}
+        onClick={() => setAptSellerType(AptSellerType.TENANT)}
+        css={buttonCSS(aptSellerType === AptSellerType.TENANT)}
       >
         세입자
       </button>
       <button
-        onClick={() => onSelectType(AptSellerType.HOUSE_OWNER)}
-        css={buttonCSS(selectedType === AptSellerType.HOUSE_OWNER)}
+        onClick={() => setAptSellerType(AptSellerType.HOUSE_OWNER)}
+        css={buttonCSS(aptSellerType === AptSellerType.HOUSE_OWNER)}
       >
         집주인
       </button>

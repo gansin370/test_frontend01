@@ -1,39 +1,32 @@
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
-import { useState } from "react";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRegisterAptStore } from "@/store/register-apt";
 
 export interface Video {
   title: string;
   url: string;
 }
 
-interface SelectVideoViewProps {
-  selectedVideo?: Video;
-  onChangeVideo: (video: Video | undefined) => void;
-}
-
-export default function SelectVideoView({
-  selectedVideo,
-  onChangeVideo,
-}: SelectVideoViewProps) {
+export default function SelectVideoView() {
+  const { video, setVideo } = useRegisterAptStore();
   return (
     <div css={containerCSS}>
       <div css={titleWrapCSS}>
         <h2>메타버스 비디오를 선택해주세요.</h2>
       </div>
       {videoList.map((_video, index) => {
-        const isSelected = selectedVideo?.title === _video.title;
+        const isSelected = video?.title === _video.title;
         return (
           <div key={_video.title}>
             <div
               css={videoTitleCSS(index === videoList.length - 1 && !isSelected)}
               onClick={() => {
                 if (isSelected) {
-                  onChangeVideo(undefined);
+                  setVideo(null);
                 } else {
-                  onChangeVideo(_video);
+                  setVideo(_video);
                 }
               }}
             >
@@ -44,9 +37,9 @@ export default function SelectVideoView({
                   checked={isSelected}
                   onChange={(e) => {
                     if (e.target.checked) {
-                      onChangeVideo(_video);
+                      setVideo(_video);
                     } else {
-                      onChangeVideo(undefined);
+                      setVideo(null);
                     }
                   }}
                 />
@@ -58,7 +51,7 @@ export default function SelectVideoView({
             </div>
             {isSelected && (
               <video css={videoCSS} autoPlay loop muted>
-                <source src={selectedVideo.url} type="video/mp4" />
+                <source src={video.url} type="video/mp4" />
               </video>
             )}
           </div>
@@ -68,7 +61,9 @@ export default function SelectVideoView({
   );
 }
 
-const containerCSS = css``;
+const containerCSS = css`
+  overflow-y: scroll;
+`;
 
 const titleWrapCSS = css`
   padding: ${getRem(20)} ${getRem(24)};

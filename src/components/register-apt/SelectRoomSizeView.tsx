@@ -1,48 +1,39 @@
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
+import Select from "../Select";
+import Input from "../Input";
+import { useRegisterAptStore } from "@/store/register-apt";
 
-interface SelectRoomSizeViewProps {
-  selectedRoomSize: number | undefined;
-  onSelectRoomSize: (roomSize: number) => void;
-}
-
-export default function SelectRoomSizeView({
-  selectedRoomSize,
-  onSelectRoomSize,
-}: SelectRoomSizeViewProps) {
+export default function SelectRoomSizeView() {
+  const { setBay, roomSize, setRoomSize } = useRegisterAptStore();
   return (
     <div css={containerCSS}>
       <h2>매물은 몇 평인가요?</h2>
-      <button
-        css={buttonCSS(selectedRoomSize === 10)}
-        onClick={() => onSelectRoomSize(10)}
-      >
-        10평대
-      </button>
-      <button
-        css={buttonCSS(selectedRoomSize === 20)}
-        onClick={() => onSelectRoomSize(20)}
-      >
-        20평대
-      </button>
-      <button
-        css={buttonCSS(selectedRoomSize === 30)}
-        onClick={() => onSelectRoomSize(30)}
-      >
-        30평대
-      </button>
-      <button
-        css={buttonCSS(selectedRoomSize === 40)}
-        onClick={() => onSelectRoomSize(40)}
-      >
-        40평대
-      </button>
-      <button
-        css={buttonCSS(selectedRoomSize === 50)}
-        onClick={() => onSelectRoomSize(50)}
-      >
-        50평 이상
-      </button>
+
+      <div css={selectWrapperCSS}>
+        <label>
+          <h4>베이</h4>
+          <br />
+          <Select
+            options={bayOptions}
+            onChange={(e) => setBay(Number(e.target.value))}
+          />
+        </label>
+      </div>
+      <div css={inputWrapperCSS}>
+        <label>
+          <h4>평수</h4>
+          <br />
+          <Input
+            type="number"
+            placeholder="평수를 입력해주세요."
+            value={roomSize ?? ""}
+            onChange={(e) =>
+              setRoomSize(e.target.value ? Number(e.target.value) : null)
+            }
+          />
+        </label>
+      </div>
     </div>
   );
 }
@@ -51,15 +42,41 @@ const containerCSS = css`
   padding: ${getRem(20)} ${getRem(24)};
 `;
 
-const buttonCSS = (selected: boolean) => () =>
-  css`
-    width: 100%;
+const selectWrapperCSS = css`
+  width: 100%;
+  height: ${getRem(50)};
+  margin-top: ${getRem(48)};
+`;
+
+const inputWrapperCSS = css`
+  width: 100%;
+  height: ${getRem(50)};
+  margin-top: ${getRem(80)};
+
+  input {
     height: ${getRem(50)};
-    border: 1px solid #e5e5e5;
-    border-radius: ${getRem(10)};
-    background-color: ${selected ? "#00BAF2" : "white"};
-    color: ${selected ? "white" : "black"};
-    font-size: ${getRem(16)};
-    font-weight: 700;
-    margin-top: ${getRem(20)};
-  `;
+  }
+`;
+
+const bayOptions = [
+  {
+    value: "1",
+    label: "1베이",
+  },
+  {
+    value: "2",
+    label: "2베이",
+  },
+  {
+    value: "3",
+    label: "3베이",
+  },
+  {
+    value: "4",
+    label: "4베이",
+  },
+  {
+    value: "5",
+    label: "5베이",
+  },
+];

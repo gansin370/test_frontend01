@@ -5,16 +5,10 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRegisterAptStore } from "@/store/register-apt";
 
-interface EnterAvailableMoveInDateViewProps {
-  availableMoveInDate: Date;
-  onChangeAvailableMoveInDate: (availableMoveInDate: Date) => void;
-}
-
-export default function EnterAvailableMoveInDateView({
-  availableMoveInDate,
-  onChangeAvailableMoveInDate,
-}: EnterAvailableMoveInDateViewProps) {
+export default function EnterAvailableMoveInDateView() {
+  const { availableMoveInDate, setAvailableMoveInDate } = useRegisterAptStore();
   const [isImmediatelyMoveInAvailable, setIsImmediatelyMoveInAvailable] =
     useState(false);
 
@@ -22,12 +16,12 @@ export default function EnterAvailableMoveInDateView({
     setIsImmediatelyMoveInAvailable(!isImmediatelyMoveInAvailable);
 
     if (!isImmediatelyMoveInAvailable) {
-      onChangeAvailableMoveInDate(new Date());
+      setAvailableMoveInDate(new Date());
     }
   };
 
   const handleDateChange = (date: Date) => {
-    onChangeAvailableMoveInDate(date);
+    setAvailableMoveInDate(date);
     if (date.getDate() !== new Date().getDate()) {
       setIsImmediatelyMoveInAvailable(false);
     }

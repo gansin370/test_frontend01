@@ -1,13 +1,9 @@
 import ProgressBar from "@/components/ProgressBar";
 import ConfirmInfoView from "@/components/register-apt/ConfirmInfoView";
-import EnterAddressView, {
-  Address,
-} from "@/components/register-apt/EnterAddress";
+import EnterAddressView from "@/components/register-apt/EnterAddress";
 import EnterAdvantageView from "@/components/register-apt/EnterAdvantageView";
 import EnterAvailableMoveInDateView from "@/components/register-apt/EnterAvailableMoveInDateView";
-import EnterExtraInfoView, {
-  ExtraInfoSelectOption,
-} from "@/components/register-apt/EnterExtraInfoView";
+import EnterExtraInfoView from "@/components/register-apt/EnterExtraInfoView";
 import EnterFacilityView from "@/components/register-apt/EnterFacility";
 import EnterLocationSummaryView from "@/components/register-apt/EnterLocationSummaryView";
 import EnterRoomImageView from "@/components/register-apt/EnterRoomImageView";
@@ -15,58 +11,48 @@ import EnterRoomInfoView from "@/components/register-apt/EnterRoomInfoView";
 import EnterTransactionTypeView, {
   TransactionType,
 } from "@/components/register-apt/EnterTransactionTypeView";
-import SelectAptSellerTypeView, {
-  AptSellerType,
-} from "@/components/register-apt/SelectAptSellerTypeView";
-import SelectRoomDirectionView, {
-  Direction,
-} from "@/components/register-apt/SelectRoomDirectionView";
+import SelectAptSellerTypeView from "@/components/register-apt/SelectAptSellerTypeView";
+import SelectRoomDirectionView from "@/components/register-apt/SelectRoomDirectionView";
 import SelectRoomSizeView from "@/components/register-apt/SelectRoomSizeView";
-import SelectVideoView, {
-  Video,
-} from "@/components/register-apt/SelectVideoView";
+import SelectRoomStructureView from "@/components/register-apt/SelectRoomStructureView";
+import SelectVideoView from "@/components/register-apt/SelectVideoView";
+import { useRegisterAptStore } from "@/store/register-apt";
 import { getRem } from "@/styles/commonStyle";
-import { Theme, css } from "@emotion/react";
-import { useState } from "react";
+import { css } from "@emotion/react";
+import { useEffect, useState } from "react";
 
 export default function RegisterAptPage() {
-  const [process, setProcess] = useState(
-    RegisterProcess.ENTER_AVAILABLE_MOVE_IN_DATE
-  );
-  const [aptSellerType, setAptSellerType] = useState<
-    AptSellerType | undefined
-  >();
-  const [roomSize, setRoomSize] = useState<number | undefined>();
-  const [roomCount, setRoomCount] = useState<number>(1);
-  const [bathroomCount, setBathroomCount] = useState<number>(1);
-  const [totalFloor, setTotalFloor] = useState<number | undefined>();
-  const [floor, setFloor] = useState<number | undefined>();
-  const [addressInfo, setAddressInfo] = useState<Address | undefined>();
-  const [locationSummary, setLocationSummary] = useState<string>("");
-  const [transactionType, setTransactionType] = useState<TransactionType>();
-  const [roomImages, setRoomImages] = useState<File[]>();
-  const [floorPlanImages, setFloorPlanImages] = useState<File[]>();
-  const [viewImages, setViewImages] = useState<File[]>();
-  const [selectedVideo, setSelectedVideo] = useState<Video>();
-  const [roomDirection, setRoomDirection] = useState<Direction>();
-  const [loanAvailable, setLoanAvailable] = useState<ExtraInfoSelectOption>(
-    ExtraInfoSelectOption.AVAILABLE
-  );
-  const [petAvailable, setPetAvailable] = useState<ExtraInfoSelectOption>(
-    ExtraInfoSelectOption.AVAILABLE
-  );
-  const [parkingAvailable, setParkingAvailable] =
-    useState<ExtraInfoSelectOption>(ExtraInfoSelectOption.AVAILABLE);
-  const [availableMoveInDate, setAvailableMoveInDate] = useState<Date>(
-    new Date()
-  );
+  const [process, setProcess] = useState(RegisterProcess.SELECT_SELLER_TYPE);
+  const [isEditing, setIsEditing] = useState(false);
 
+  const {
+    aptSellerType,
+    roomSize,
+    structure,
+    totalFloor,
+    floor,
+    addressInfo,
+    locationSummary,
+    transactionType,
+    tradingPrice,
+    jeonseDeposit,
+    monthlyDeposit,
+    monthlyRent,
+    roomImages,
+    video,
+    roomDirection,
+    facility,
+    advantage,
+    clearStore,
+  } = useRegisterAptStore();
   const getButtonDisabled = () => {
     switch (process) {
       case RegisterProcess.SELECT_SELLER_TYPE:
         return !aptSellerType;
       case RegisterProcess.SELECT_ROOM_SIZE:
         return !roomSize;
+      case RegisterProcess.SELECT_ROOM_STRUCTURE:
+        return !structure;
       case RegisterProcess.ENTER_ROOM_INFO:
         return !totalFloor || !floor;
       case RegisterProcess.ENTER_ADDRESS:
@@ -80,13 +66,27 @@ export default function RegisterAptPage() {
       case RegisterProcess.ENTER_LOCATION_SUMMARY:
         return !locationSummary;
       case RegisterProcess.ENTER_TRANSACTION_TYPE:
-        return !transactionType;
+        if (transactionType?.includes(TransactionType.월세)) {
+          return !monthlyDeposit || !monthlyRent;
+        }
+        if (transactionType?.includes(TransactionType.전세)) {
+          return !jeonseDeposit;
+        }
+        if (transactionType?.includes(TransactionType.매매)) {
+          return !tradingPrice;
+        }
+        return !transactionType || transactionType.length === 0;
       case RegisterProcess.ENTER_ROOM_IMAGES:
         return !roomImages || roomImages?.length < 3;
       case RegisterProcess.SELECT_VIDEO:
-        return !selectedVideo;
+        return !video;
       case RegisterProcess.SELECT_ROOM_DIRECTION:
         return !roomDirection;
+      case RegisterProcess.ENTER_FACILITY:
+        return !facility || facility.length === 0;
+      case RegisterProcess.ENTER_ADVANTAGE:
+        return !advantage || advantage.length === 0;
+
       default:
         return false;
     }
@@ -111,110 +111,87 @@ export default function RegisterAptPage() {
     }
   };
 
+  const onEdit = (process: RegisterProcess) => {
+    setIsEditing(true);
+    setProcess(process);
+  };
+
+  const onEditFinish = () => {
+    setIsEditing(false);
+    setProcess(RegisterProcess.CONFIRM_INFO);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearStore();
+    };
+  }, []);
+
   return (
     <main css={containerCSS}>
       {process === RegisterProcess.SELECT_SELLER_TYPE && (
-        <SelectAptSellerTypeView
-          selectedType={aptSellerType}
-          onSelectType={setAptSellerType}
-        />
+        <SelectAptSellerTypeView />
       )}
-      {process === RegisterProcess.SELECT_ROOM_SIZE && (
-        <SelectRoomSizeView
-          selectedRoomSize={roomSize}
-          onSelectRoomSize={setRoomSize}
-        />
+      {process === RegisterProcess.SELECT_ROOM_SIZE && <SelectRoomSizeView />}
+      {process === RegisterProcess.SELECT_ROOM_STRUCTURE && (
+        <SelectRoomStructureView />
       )}
-      {process === RegisterProcess.ENTER_ROOM_INFO && (
-        <EnterRoomInfoView
-          roomSize={roomSize}
-          onChangeRoomCount={setRoomCount}
-          onChangeBathroomCount={setBathroomCount}
-          totalFloor={totalFloor}
-          onChangeTotalFloor={setTotalFloor}
-          floor={floor}
-          onChangeFloor={setFloor}
-        />
-      )}
-      {process === RegisterProcess.ENTER_ADDRESS && (
-        <EnterAddressView
-          address={addressInfo}
-          onChangeAddress={setAddressInfo}
-        />
-      )}
+      {process === RegisterProcess.ENTER_ROOM_INFO && <EnterRoomInfoView />}
+      {process === RegisterProcess.ENTER_ADDRESS && <EnterAddressView />}
       {process === RegisterProcess.ENTER_LOCATION_SUMMARY && (
-        <EnterLocationSummaryView
-          locationSummary={locationSummary}
-          onChangeLocationSummary={setLocationSummary}
-        />
+        <EnterLocationSummaryView />
       )}
       {process === RegisterProcess.ENTER_TRANSACTION_TYPE && (
-        <EnterTransactionTypeView
-          transactionType={transactionType}
-          onChangeTransactionType={setTransactionType}
-        />
+        <EnterTransactionTypeView />
       )}
-      {process === RegisterProcess.ENTER_ROOM_IMAGES && (
-        <EnterRoomImageView
-          roomImage={roomImages}
-          floorPlanImage={floorPlanImages}
-          viewImage={viewImages}
-          onChangeRoomImage={setRoomImages}
-          onChangeFloorPlanImage={setFloorPlanImages}
-          onChangeViewImage={setViewImages}
-        />
-      )}
-      {process === RegisterProcess.SELECT_VIDEO && (
-        <SelectVideoView
-          selectedVideo={selectedVideo}
-          onChangeVideo={setSelectedVideo}
-        />
-      )}
+      {process === RegisterProcess.ENTER_ROOM_IMAGES && <EnterRoomImageView />}
+      {process === RegisterProcess.SELECT_VIDEO && <SelectVideoView />}
       {process === RegisterProcess.SELECT_ROOM_DIRECTION && (
-        <SelectRoomDirectionView
-          direction={roomDirection}
-          onChangeDirection={setRoomDirection}
-        />
+        <SelectRoomDirectionView />
       )}
-      {process === RegisterProcess.ENTER_EXTRA_INFO && (
-        <EnterExtraInfoView
-          loan={loanAvailable}
-          onChangeLoan={setLoanAvailable}
-          pet={petAvailable}
-          onChangePet={setPetAvailable}
-          parking={parkingAvailable}
-          onChangeParking={setParkingAvailable}
-        />
-      )}
+      {process === RegisterProcess.ENTER_EXTRA_INFO && <EnterExtraInfoView />}
       {process === RegisterProcess.ENTER_AVAILABLE_MOVE_IN_DATE && (
-        <EnterAvailableMoveInDateView
-          availableMoveInDate={availableMoveInDate}
-          onChangeAvailableMoveInDate={setAvailableMoveInDate}
-        />
+        <EnterAvailableMoveInDateView />
       )}
       {process === RegisterProcess.ENTER_FACILITY && <EnterFacilityView />}
       {process === RegisterProcess.ENTER_ADVANTAGE && <EnterAdvantageView />}
-      {process === RegisterProcess.CONFIRM_INFO && <ConfirmInfoView />}
+      {process === RegisterProcess.CONFIRM_INFO && (
+        <ConfirmInfoView onEdit={onEdit} />
+      )}
 
       <div>
         <ProgressBar
           progress={processList.length}
           currentProgress={processList.findIndex((v) => v === process) + 1}
         />
-        <div css={buttonContainerCSS}>
-          {process !== processList[0] && (
-            <button onClick={onClickPreviousButton} css={previousButtonCSS}>
-              이전
+        {isEditing ? (
+          <div css={buttonContainerCSS}>
+            <button
+              onClick={onEditFinish}
+              css={editButtonCSS(getButtonDisabled())}
+            >
+              수정하기
             </button>
-          )}
-          <button
-            onClick={onClickNextButton}
-            css={nextButtonCSS(getButtonDisabled(), process === processList[0])}
-            disabled={getButtonDisabled()}
-          >
-            다음
-          </button>
-        </div>
+          </div>
+        ) : (
+          <div css={buttonContainerCSS}>
+            {process !== processList[0] && (
+              <button onClick={onClickPreviousButton} css={previousButtonCSS}>
+                이전
+              </button>
+            )}
+            <button
+              onClick={onClickNextButton}
+              css={nextButtonCSS(
+                getButtonDisabled(),
+                process === processList[0]
+              )}
+              disabled={getButtonDisabled()}
+            >
+              다음
+            </button>
+          </div>
+        )}
       </div>
     </main>
   );
@@ -231,7 +208,7 @@ const containerCSS = css`
   justify-content: space-between;
   flex-direction: column;
   padding-bottom: ${getRem(20)};
-  overflow-y: scroll;
+  overflow: hidden;
 `;
 
 const buttonContainerCSS = css`
@@ -262,9 +239,21 @@ const previousButtonCSS = css`
   background-color: lightgray;
 `;
 
-enum RegisterProcess {
+const editButtonCSS = (disabled: boolean) => () =>
+  css`
+    border-radius: ${getRem(8)};
+    padding: ${getRem(16)} ${getRem(20)};
+    width: 100%;
+    color: ${disabled ? "gray" : "white"};
+    font-size: ${getRem(16)};
+    font-weight: 700;
+    background-color: ${disabled ? "#e5e5e5" : "#00baf2"};
+  `;
+
+export enum RegisterProcess {
   SELECT_SELLER_TYPE = "SELECT_SELLER_TYPE",
   SELECT_ROOM_SIZE = "SELECT_ROOM_SIZE",
+  SELECT_ROOM_STRUCTURE = "SELECT_ROOM_STRUCTURE",
   ENTER_ROOM_INFO = "ENTER_ROOM_INFO",
   ENTER_ADDRESS = "ENTER_ADDRESS",
   ENTER_LOCATION_SUMMARY = "ENTER_LOCATION_SUMMARY",

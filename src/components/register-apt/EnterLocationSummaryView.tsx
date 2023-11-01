@@ -1,22 +1,16 @@
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
 import Input from "../Input";
+import { useRegisterAptStore } from "@/store/register-apt";
 
-interface EnterLocationSummaryViewProps {
-  locationSummary: string;
-  onChangeLocationSummary: (locationSummary: string) => void;
-}
-
-export default function EnterLocationSummaryView({
-  locationSummary,
-  onChangeLocationSummary,
-}: EnterLocationSummaryViewProps) {
+export default function EnterLocationSummaryView() {
+  const { locationSummary, setLocationSummary } = useRegisterAptStore();
   return (
     <div css={containerCSS}>
       <h2>위치정보를 한줄로 요약해주세요.</h2>
       <Input
-        value={locationSummary}
-        onChange={(e) => onChangeLocationSummary(e.target.value)}
+        value={locationSummary ?? ""}
+        onChange={(e) => setLocationSummary(e.target.value)}
         placeholder="강남역 도보 5분"
         css={inputCSS}
       />

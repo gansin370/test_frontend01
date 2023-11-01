@@ -23,4 +23,5 @@ const inputCSS = css`
   margin: 0;
   box-sizing: border-box;
   background-color: transparent;
+
 `;

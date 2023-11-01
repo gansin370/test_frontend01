@@ -1,34 +1,33 @@
+import { useRegisterAptStore } from "@/store/register-apt";
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
 
-interface EnterExtraInfoViewProps {
-  loan: ExtraInfoSelectOption;
-  onChangeLoan: (loan: ExtraInfoSelectOption) => void;
-  pet: ExtraInfoSelectOption;
-  onChangePet: (pet: ExtraInfoSelectOption) => void;
-  parking: ExtraInfoSelectOption;
-  onChangeParking: (parking: ExtraInfoSelectOption) => void;
-}
-
-export default function EnterExtraInfoView({
-  loan,
-  onChangeLoan,
-  pet,
-  onChangePet,
-  parking,
-  onChangeParking,
-}: EnterExtraInfoViewProps) {
+export default function EnterExtraInfoView() {
+  const {
+    loanAvailable,
+    petAvailable,
+    parkingAvailable,
+    setLoanAvailable,
+    setPetAvailable,
+    setParkingAvailable,
+  } = useRegisterAptStore();
   return (
     <div css={containerCSS}>
       <h2>다음 항목이 가능한지 알려주세요</h2>
       <h4 css={labelCSS}>대출</h4>
-      <ExtraInfoSelectBox selectedOption={loan} onChangeOption={onChangeLoan} />
+      <ExtraInfoSelectBox
+        selectedOption={loanAvailable}
+        onChangeOption={setLoanAvailable}
+      />
       <h4 css={labelCSS}>반려동물</h4>
-      <ExtraInfoSelectBox selectedOption={pet} onChangeOption={onChangePet} />
+      <ExtraInfoSelectBox
+        selectedOption={petAvailable}
+        onChangeOption={setPetAvailable}
+      />
       <h4 css={labelCSS}>주차</h4>
       <ExtraInfoSelectBox
-        selectedOption={parking}
-        onChangeOption={onChangeParking}
+        selectedOption={parkingAvailable}
+        onChangeOption={setParkingAvailable}
       />
     </div>
   );

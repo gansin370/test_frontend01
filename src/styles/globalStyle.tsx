@@ -16,6 +16,12 @@ const globalCSS = css`
     text-decoration: none;
   }
 
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   @font-face {
     font-family: Pretendard;
     src: url("/fonts/Pretendard-Bold.otf");
