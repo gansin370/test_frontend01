@@ -37,6 +37,11 @@ const initialState = {
   availableMoveInDate: new Date(),
   facility: null,
   advantage: null,
+  maintenanceFee: null,
+  includeMaintenanceItem: null,
+  excludeMaintenanceItem: null,
+  maintenanceDescription: null,
+  roomIntroduction: null,
 };
 
 type RegisterAptStore = {
@@ -100,6 +105,16 @@ type RegisterAptStore = {
   setFacility: (facility: Facility[] | null) => void;
   advantage: string[] | null;
   setAdvantage: (advantage: string[] | null) => void;
+  maintenanceFee: number | null;
+  setMaintenanceFee: (maintenanceFee: number | null) => void;
+  includeMaintenanceItem: string[] | null;
+  setIncludeMaintenanceItem: (includeMaintenanceItem: string[] | null) => void;
+  excludeMaintenanceItem: string[] | null;
+  setExcludeMaintenanceItem: (excludeMaintenanceItem: string[] | null) => void;
+  maintenanceDescription: string | null;
+  setMaintenanceDescription: (maintenanceDescription: string | null) => void;
+  roomIntroduction: string | null;
+  setRoomIntroduction: (roomIntroduction: string | null) => void;
   clearStore: () => void;
 };
 
@@ -135,5 +150,13 @@ export const useRegisterAptStore = create<RegisterAptStore>((set) => ({
   setAvailableMoveInDate: (availableMoveInDate) => set({ availableMoveInDate }),
   setFacility: (facility) => set({ facility }),
   setAdvantage: (advantage) => set({ advantage }),
+  setMaintenanceFee: (maintenanceFee) => set({ maintenanceFee }),
+  setIncludeMaintenanceItem: (includeMaintenanceItem) =>
+    set({ includeMaintenanceItem }),
+  setExcludeMaintenanceItem: (excludeMaintenanceItem) =>
+    set({ excludeMaintenanceItem }),
+  setMaintenanceDescription: (maintenanceDescription) =>
+    set({ maintenanceDescription }),
+  setRoomIntroduction: (roomIntroduction) => set({ roomIntroduction }),
   clearStore: () => set({ ...initialState }),
 }));

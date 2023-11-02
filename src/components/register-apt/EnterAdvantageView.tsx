@@ -55,6 +55,7 @@ export default function EnterAdvantageView() {
 
 const containerCSS = css`
   padding: ${getRem(20)} ${getRem(24)};
+  overflow-y: scroll;
 `;
 
 const descriptionCSS = css`

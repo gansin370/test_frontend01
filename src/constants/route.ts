@@ -6,4 +6,8 @@ export const ROUTES = {
   DOCUMENT: "/document",
   INQUIRY: "/inquiry",
   LOGIN: "/login",
+  MY_PAGE: {
+    HOME: "/my-page",
+    MY_APARTMENT: "/my-page/my-apartment",
+  },
 };

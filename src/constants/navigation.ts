@@ -25,4 +25,8 @@ export const navList = [
     name: "광고문의",
     link: ROUTES.INQUIRY,
   },
+  {
+    name: "마이페이지",
+    link: ROUTES.MY_PAGE.HOME,
+  },
 ];

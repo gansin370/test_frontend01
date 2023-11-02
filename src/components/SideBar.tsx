@@ -15,6 +15,8 @@ import {
 import { faUser as regularUser } from "@fortawesome/free-regular-svg-icons";
 import { useUserStore } from "@/store/user";
 import { ROUTES } from "@/constants/route";
+import useToken from "@/hook/useToken";
+import { useRouter } from "next/router";
 
 interface SideBarProps {
   open: boolean;
@@ -23,7 +25,18 @@ interface SideBarProps {
 
 export default function SideBar({ open, close }: SideBarProps) {
   const isMounted = useMounted();
-  const { user } = useUserStore();
+  const router = useRouter();
+  const { user, setUser } = useUserStore();
+  const { removeToken } = useToken();
+
+  const handleLogout = () => {
+    if (confirm("로그아웃 하시겠습니까?")) {
+      setUser(null);
+      removeToken();
+      alert("로그아웃 되었습니다.");
+      router.push("/");
+    }
+  };
 
   if (!isMounted || !open) {
     return null;
@@ -47,7 +60,7 @@ export default function SideBar({ open, close }: SideBarProps) {
           </nav>
         </div>
         {!!user ? (
-          <button css={loginButtonCSS}>
+          <button css={loginButtonCSS} onClick={handleLogout}>
             <FontAwesomeIcon icon={solidUser} />
             <span>로그아웃</span>
           </button>

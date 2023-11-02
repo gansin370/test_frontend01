@@ -9,12 +9,12 @@ import qs from "qs";
 export interface AxiosRequestParams {
   method: Method;
   url: string;
-  queryParams?: Record<string, unknown>;
-  requestBody?: Record<string, unknown>;
-  headers?: AxiosRequestHeaders;
+  queryParams?: any;
+  requestBody?: any;
+  headers?: any;
 }
 
-export const axiosMethod = {
+export const axiosMethod: Record<string, Method> = {
   GET: "get",
   POST: "post",
   PATCH: "patch",
@@ -26,7 +26,6 @@ export const axiosUtils = {
     timeout: 300000,
     paramsSerializer: (params: unknown) =>
       qs.stringify(params, { arrayFormat: "brackets" }),
-    withCredentials: true,
   },
 };
 
@@ -68,6 +67,7 @@ export class NetworkManager {
 
   constructor() {
     this.baseURL = process.env.NEXT_PUBLIC_OUR_APT_SERVER_ROOT_URL as string;
+    // this.baseURL = "http://172.30.1.30:8000";
   }
 
   public readonly createInstance = (): AxiosInstance => {

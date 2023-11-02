@@ -1,12 +1,17 @@
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import Image from "../Image";
 import { useRegisterAptStore } from "@/store/register-apt";
 import { RegisterProcess } from "@/pages/register-apt";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TransactionType } from "./EnterTransactionTypeView";
+import ProgressBar from "../ProgressBar";
+import { createApartment } from "@/apis/apartment";
+import LoadingSpinner from "../LoadingSpinner";
+import { useRouter } from "next/router";
+import { ROUTES } from "@/constants/route";
 
 interface ConfirmInfoViewProps {
   onEdit: (process: RegisterProcess) => void;
@@ -42,7 +47,16 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
     availableMoveInDate,
     facility,
     advantage,
+    maintenanceFee,
+    includeMaintenanceItem,
+    excludeMaintenanceItem,
+    maintenanceDescription,
+    roomIntroduction,
   } = useRegisterAptStore();
+
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
   const roomImageThumbnail =
     roomImages?.map((image) => URL.createObjectURL(image)) || [];
   const floorPlanImageThumbnail = floorPlanImages?.map((image) =>
@@ -52,8 +66,95 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
     URL.createObjectURL(image)
   );
 
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      if (
+        !aptSellerType ||
+        !roomSize ||
+        !bay ||
+        !structure ||
+        !addressInfo?.address ||
+        !addressInfo.lat ||
+        !addressInfo.lng ||
+        !floor ||
+        !totalFloor ||
+        !roomCount ||
+        !bathroomCount ||
+        !roomDirection ||
+        !facility ||
+        !loanAvailable ||
+        !petAvailable ||
+        !parkingAvailable ||
+        !availableMoveInDate ||
+        !advantage ||
+        !roomImages
+      ) {
+        return;
+      }
+      await createApartment({
+        params: {
+          userType: aptSellerType,
+          apartmentSize: roomSize,
+          apartmentBay: bay,
+          apartmentStructure: structure,
+          latitude: Number(addressInfo.lat),
+          longitude: Number(addressInfo.lng),
+          address: addressInfo.address,
+          floorInfo: {
+            currentFloor: floor,
+            totalFloor,
+          },
+          roomInfo: {
+            roomCount,
+            bathRoomCount: bathroomCount,
+          },
+          customDescription: locationSummary ?? undefined,
+          transactionMethod: {
+            jeonse: jeonseDeposit ?? undefined,
+            monthlyRent: monthlyRent ?? undefined,
+            monthlyRentDeposit: monthlyDeposit ?? undefined,
+            depositChangeable: monthlyRentDepositAdjustable ?? undefined,
+            depositChangeableDescription:
+              depositAdjustableDescription ?? undefined,
+          },
+          apartmentDirection: roomDirection,
+          maintenanceInfo: {
+            cost: maintenanceFee ?? 0,
+            includeItems: includeMaintenanceItem ?? [],
+            excludeItems: excludeMaintenanceItem ?? [],
+            description: maintenanceDescription ?? undefined,
+          },
+          optionPossible: {
+            loan: loanAvailable,
+            animal: petAvailable,
+            parking: parkingAvailable,
+          },
+          facility,
+          advantages: advantage,
+          introduction: "소개소개",
+          availableDate: availableMoveInDate,
+          videoUrl: video?.url,
+        },
+        images: {
+          roomImages,
+          floorPlanImages: floorPlanImages ?? undefined,
+          viewImages: viewImages ?? undefined,
+        },
+      });
+      alert("등록이 완료되었습니다.");
+      router.push(ROUTES.MY_PAGE.MY_APARTMENT);
+    } catch (e) {
+      console.log(e);
+      alert("등록 중 에러가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div css={containerCSS}>
+      {loading && <LoadingSpinner />}
       <h2 css={titleCSS}>입력한 정보를 확인해주세요.</h2>
       <InfoRow
         title="글 작성자"
@@ -85,6 +186,28 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
         content={`${floor}층 / 전체 ${totalFloor}층`}
         onClick={() => onEdit(RegisterProcess.ENTER_ROOM_INFO)}
       />
+      <InfoRow
+        title="관리비"
+        content={maintenanceFee ? `${maintenanceFee}만원` : ""}
+        onClick={() => onEdit(RegisterProcess.ENTER_MAINTENANCE_FEE)}
+      />
+      <InfoColumn
+        title="관리비 포함 항목"
+        content={includeMaintenanceItem?.join(", ") ?? ""}
+        onClick={() => onEdit(RegisterProcess.ENTER_MAINTENANCE_FEE)}
+      />
+      <InfoColumn
+        title="관리비 불포함 항목"
+        content={excludeMaintenanceItem?.join(", ") ?? ""}
+        onClick={() => onEdit(RegisterProcess.ENTER_MAINTENANCE_FEE)}
+      />
+      {maintenanceDescription && (
+        <InfoColumn
+          title="관리비 설명"
+          content={maintenanceDescription}
+          onClick={() => onEdit(RegisterProcess.ENTER_MAINTENANCE_FEE)}
+        />
+      )}
       <InfoColumn
         title="주소"
         content={addressInfo?.address ?? ""}
@@ -156,31 +279,31 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
           onClick={() => onEdit(RegisterProcess.ENTER_ROOM_IMAGES)}
         />
       )}
-      {video && (
-        <div
-          css={infoColumnCSS}
-          onClick={() => onEdit(RegisterProcess.SELECT_VIDEO)}
-        >
-          <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                cursor: "pointer",
-                marginBottom: getRem(18),
-              }}
-            >
-              <span>메타버스 비디오</span>
-              <FontAwesomeIcon icon={faChevronRight} color="#828282" />
-            </div>
+      <div
+        css={infoColumnCSS}
+        onClick={() => onEdit(RegisterProcess.SELECT_VIDEO)}
+      >
+        <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              cursor: "pointer",
+              marginBottom: getRem(18),
+            }}
+          >
+            <span>메타버스 비디오</span>
+            <FontAwesomeIcon icon={faChevronRight} color="#828282" />
+          </div>
 
+          {video && (
             <video css={videoCSS} autoPlay loop muted>
               <source src={video.url} type="video/mp4" />
             </video>
-          </div>
+          )}
         </div>
-      )}
+      </div>
       <InfoRow
         title="방향"
         content={roomDirection ?? ""}
@@ -218,6 +341,16 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
         ))}
         onClick={() => onEdit(RegisterProcess.ENTER_ADVANTAGE)}
       />
+      {roomIntroduction && (
+        <InfoColumn
+          title="방 소개"
+          content={roomIntroduction}
+          onClick={() => onEdit(RegisterProcess.ENTER_ROOM_INTRODUCTION)}
+        />
+      )}
+      <button onClick={handleSubmit} css={bottomButtonCSS} disabled={loading}>
+        등록하기
+      </button>
     </div>
   );
 }
@@ -380,4 +513,15 @@ const imageWrapCSS = css`
 const videoCSS = css`
   width: 100%;
   object-fit: cover;
+`;
+
+const bottomButtonCSS = css`
+  margin-top: ${getRem(20)};
+  border-radius: ${getRem(8)};
+  padding: ${getRem(16)} ${getRem(20)};
+  width: 100%;
+  color: white;
+  font-size: ${getRem(16)};
+  font-weight: 700;
+  background-color: #00baf2;
 `;

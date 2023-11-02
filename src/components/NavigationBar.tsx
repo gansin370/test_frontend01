@@ -11,11 +11,24 @@ import { useUserStore } from "@/store/user";
 import { navList } from "@/constants/navigation";
 import SideBar from "./SideBar";
 import { useState } from "react";
+import useToken from "@/hook/useToken";
+import { useRouter } from "next/router";
 
 export default function NavigationBar() {
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
+  const { removeToken } = useToken();
+  const router = useRouter();
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
+  const handleLogout = () => {
+    if (confirm("로그아웃 하시겠습니까?")) {
+      setUser(null);
+      removeToken();
+      alert("로그아웃 되었습니다.");
+      router.push("/");
+    }
+  };
 
   return (
     <div css={containerCSS}>
@@ -35,7 +48,7 @@ export default function NavigationBar() {
       </button>
 
       {!!user ? (
-        <button css={loginButtonCSS}>
+        <button css={loginButtonCSS} onClick={handleLogout}>
           <FontAwesomeIcon icon={solidUser} />
           <span>로그아웃</span>
         </button>

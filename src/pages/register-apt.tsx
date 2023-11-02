@@ -6,11 +6,13 @@ import EnterAvailableMoveInDateView from "@/components/register-apt/EnterAvailab
 import EnterExtraInfoView from "@/components/register-apt/EnterExtraInfoView";
 import EnterFacilityView from "@/components/register-apt/EnterFacility";
 import EnterLocationSummaryView from "@/components/register-apt/EnterLocationSummaryView";
+import EnterMaintenanceFeeView from "@/components/register-apt/EnterMaintenanceFeeView";
 import EnterRoomImageView from "@/components/register-apt/EnterRoomImageView";
 import EnterRoomInfoView from "@/components/register-apt/EnterRoomInfoView";
 import EnterTransactionTypeView, {
   TransactionType,
 } from "@/components/register-apt/EnterTransactionTypeView";
+import EnterRoomIntroductionView from "@/components/register-apt/EnterRoomIntroductionView";
 import SelectAptSellerTypeView from "@/components/register-apt/SelectAptSellerTypeView";
 import SelectRoomDirectionView from "@/components/register-apt/SelectRoomDirectionView";
 import SelectRoomSizeView from "@/components/register-apt/SelectRoomSizeView";
@@ -20,8 +22,9 @@ import { useRegisterAptStore } from "@/store/register-apt";
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
+import withAuth from "@/hoc/withAuth";
 
-export default function RegisterAptPage() {
+function RegisterAptPage() {
   const [process, setProcess] = useState(RegisterProcess.SELECT_SELLER_TYPE);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -32,7 +35,6 @@ export default function RegisterAptPage() {
     totalFloor,
     floor,
     addressInfo,
-    locationSummary,
     transactionType,
     tradingPrice,
     jeonseDeposit,
@@ -58,13 +60,10 @@ export default function RegisterAptPage() {
       case RegisterProcess.ENTER_ADDRESS:
         return (
           !addressInfo?.address ||
-          !addressInfo?.detailAddress ||
           !addressInfo?.lat ||
           !addressInfo?.lng ||
           !addressInfo?.address
         );
-      case RegisterProcess.ENTER_LOCATION_SUMMARY:
-        return !locationSummary;
       case RegisterProcess.ENTER_TRANSACTION_TYPE:
         if (transactionType?.includes(TransactionType.월세)) {
           return !monthlyDeposit || !monthlyRent;
@@ -86,7 +85,6 @@ export default function RegisterAptPage() {
         return !facility || facility.length === 0;
       case RegisterProcess.ENTER_ADVANTAGE:
         return !advantage || advantage.length === 0;
-
       default:
         return false;
     }
@@ -137,6 +135,9 @@ export default function RegisterAptPage() {
         <SelectRoomStructureView />
       )}
       {process === RegisterProcess.ENTER_ROOM_INFO && <EnterRoomInfoView />}
+      {process === RegisterProcess.ENTER_MAINTENANCE_FEE && (
+        <EnterMaintenanceFeeView />
+      )}
       {process === RegisterProcess.ENTER_ADDRESS && <EnterAddressView />}
       {process === RegisterProcess.ENTER_LOCATION_SUMMARY && (
         <EnterLocationSummaryView />
@@ -155,44 +156,49 @@ export default function RegisterAptPage() {
       )}
       {process === RegisterProcess.ENTER_FACILITY && <EnterFacilityView />}
       {process === RegisterProcess.ENTER_ADVANTAGE && <EnterAdvantageView />}
+      {process === RegisterProcess.ENTER_ROOM_INTRODUCTION && (
+        <EnterRoomIntroductionView />
+      )}
       {process === RegisterProcess.CONFIRM_INFO && (
         <ConfirmInfoView onEdit={onEdit} />
       )}
 
-      <div>
-        <ProgressBar
-          progress={processList.length}
-          currentProgress={processList.findIndex((v) => v === process) + 1}
-        />
-        {isEditing ? (
-          <div css={buttonContainerCSS}>
-            <button
-              onClick={onEditFinish}
-              css={editButtonCSS(getButtonDisabled())}
-            >
-              수정하기
-            </button>
-          </div>
-        ) : (
-          <div css={buttonContainerCSS}>
-            {process !== processList[0] && (
-              <button onClick={onClickPreviousButton} css={previousButtonCSS}>
-                이전
+      {process !== RegisterProcess.CONFIRM_INFO && (
+        <div>
+          <ProgressBar
+            progress={processList.length}
+            currentProgress={processList.findIndex((v) => v === process) + 1}
+          />
+          {isEditing ? (
+            <div css={buttonContainerCSS}>
+              <button
+                onClick={onEditFinish}
+                css={editButtonCSS(getButtonDisabled())}
+              >
+                수정하기
               </button>
-            )}
-            <button
-              onClick={onClickNextButton}
-              css={nextButtonCSS(
-                getButtonDisabled(),
-                process === processList[0]
+            </div>
+          ) : (
+            <div css={buttonContainerCSS}>
+              {process !== processList[0] && (
+                <button onClick={onClickPreviousButton} css={previousButtonCSS}>
+                  이전
+                </button>
               )}
-              disabled={getButtonDisabled()}
-            >
-              다음
-            </button>
-          </div>
-        )}
-      </div>
+              <button
+                onClick={onClickNextButton}
+                css={nextButtonCSS(
+                  getButtonDisabled(),
+                  process === processList[0]
+                )}
+                disabled={getButtonDisabled()}
+              >
+                다음
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </main>
   );
 }
@@ -255,6 +261,7 @@ export enum RegisterProcess {
   SELECT_ROOM_SIZE = "SELECT_ROOM_SIZE",
   SELECT_ROOM_STRUCTURE = "SELECT_ROOM_STRUCTURE",
   ENTER_ROOM_INFO = "ENTER_ROOM_INFO",
+  ENTER_MAINTENANCE_FEE = "ENTER_MAINTENANCE_FEE",
   ENTER_ADDRESS = "ENTER_ADDRESS",
   ENTER_LOCATION_SUMMARY = "ENTER_LOCATION_SUMMARY",
   ENTER_TRANSACTION_TYPE = "ENTER_TRANSACTION_TYPE",
@@ -265,7 +272,10 @@ export enum RegisterProcess {
   ENTER_AVAILABLE_MOVE_IN_DATE = "ENTER_AVAILABLE_MOVE_IN_DATE",
   ENTER_FACILITY = "ENTER_FACILITY",
   ENTER_ADVANTAGE = "ENTER_ADVANTAGE",
+  ENTER_ROOM_INTRODUCTION = "ENTER_ROOM_INTRODUCTION",
   CONFIRM_INFO = "CONFIRM_INFO",
 }
 
 const processList = Object.values(RegisterProcess);
+
+export default withAuth(RegisterAptPage);

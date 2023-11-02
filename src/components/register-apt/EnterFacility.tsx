@@ -47,6 +47,7 @@ export default function EnterFacilityView() {
 
 const containerCSS = css`
   padding: ${getRem(20)} ${getRem(24)};
+  overflow-y: scroll;
 `;
 
 const buttonCSS = (selected: boolean) => () =>
