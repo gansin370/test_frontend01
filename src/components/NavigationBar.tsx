@@ -66,6 +66,7 @@ export default function NavigationBar() {
 const containerCSS = (theme: Theme) => css`
   display: flex;
   justify-content: space-between;
+
   align-items: center;
   padding: ${getRem(16)} ${getRem(40)};
   border-bottom: 1px solid #e5e5e5;

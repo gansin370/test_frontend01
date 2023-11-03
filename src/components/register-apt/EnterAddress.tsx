@@ -5,6 +5,7 @@ import Input from "../Input";
 import { ChangeEvent } from "react";
 import axios from "axios";
 import { useRegisterAptStore } from "@/store/register-apt";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 export interface Address {
   address?: string;
@@ -12,6 +13,26 @@ export interface Address {
   lat?: string;
   lng?: string;
 }
+
+type KakaoMapProps = {
+  lat: number;
+  lng: number;
+};
+
+const KakaoMap: React.FC<KakaoMapProps> = ({ lat, lng }) => {
+  return (
+    <div style={{ zIndex: 1, marginTop: "30px" }}>
+      <Map
+        center={{ lat, lng }}
+        style={{ width: "450px", height: "400px", zIndex: 1 }}
+        level={3}
+        draggable={false}
+      >
+        <MapMarker position={{ lat, lng }} clickable={true} />
+      </Map>
+    </div>
+  );
+};
 
 export default function EnterAddressView() {
   const { addressInfo, setAddressInfo } = useRegisterAptStore();
@@ -67,6 +88,12 @@ export default function EnterAddressView() {
         placeholder="상세주소를 입력해주세요."
         css={inputCSS}
       />
+      {addressInfo?.lat && addressInfo?.lng && (
+        <KakaoMap
+          lat={Number(addressInfo?.lat)}
+          lng={Number(addressInfo?.lng)}
+        />
+      )}
     </div>
   );
 }

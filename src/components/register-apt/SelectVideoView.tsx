@@ -92,27 +92,27 @@ const checkboxCSS = css`
 
 const videoList: Video[] = [
   {
-    title: "10평형",
+    title: "A",
     url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
   },
   {
-    title: "20평형",
+    title: "B",
     url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
   },
   {
-    title: "30평형",
+    title: "C",
     url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
   },
   {
-    title: "40평형",
+    title: "D",
     url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
   },
   {
-    title: "50평형",
+    title: "E",
     url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
   },
   {
-    title: "쩌는 집",
+    title: "F",
     url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
   },
 ];
