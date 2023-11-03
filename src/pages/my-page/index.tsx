@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-
+//
 interface Apartment {
   apartmentId: number;
   address: string;
