@@ -367,19 +367,7 @@ export default function ChatPage() {
             <div key={index} css={messageCSS(message.sender)}>
               {message.isMap ? (
                 <div
-                  css={css`
-                    width: 325px;
-                    padding: 16px;
-                    border-radius: 8px;
-                    background: white;
-                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-                      0 6px 6px rgba(0, 0, 0, 0.23);
-                    border: 1px solid #ddd;
-                    transition: transform 0.3s ease-in-out;
-                    &:hover {
-                      transform: translateY(-5px);
-                    }
-                  `}
+                  css={cardCss}
                   onClick={() => handleCardClick(message.data as ApartmentData)}
                 >
                   <KakaoMap
@@ -462,6 +450,19 @@ export default function ChatPage() {
   );
 }
 
+const cardCss = css`
+  width: 325px;
+  padding: 16px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #ddd;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
 const messageCSS = (sender: string) => css`
   display: flex;
   justify-content: ${sender === "user" ? "flex-end" : "flex-start"};
@@ -505,7 +506,6 @@ const WrapperCSS = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   width: 100%;
 `;
 
@@ -516,20 +516,20 @@ const titleCss = css`
 
 const chatContainerCSS = css`
   display: flex;
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 600px;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  max-height: 600px;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow: auto;
-  scrollbar-width: none;
+  justify-content: space-between; // 메시지 목록과 입력 필드 사이에 공간을 분배
+  align-items: center; // 가로축 중앙 정렬
+  width: 100%;
+  max-width: 600px; // 최대 가로 크기 설정
+  height: 100vh; // 뷰포트의 전체 높이로 설정
+  margin-top: 20px; // 상단 마진
+  margin-left: auto; // 가운데 정렬을 위한 설정
+  margin-right: auto; // 가운데 정렬을 위한 설정
+  padding: 20px; // 안쪽 여백
+  box-sizing: border-box; // 패딩과 보더가 너비에 포함되도록 설정
+  overflow: hidden; // 오버플로우 숨김
+  border-left: 1px solid #e5e5e5; // 왼쪽 보더 설정
+  border-right: 1px solid #e5e5e5; // 오른쪽 보더 설정
 `;
 
 const messagesContainerCSS = css`
@@ -543,7 +543,15 @@ const messagesContainerCSS = css`
 const inputContainerCSS = css`
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  padding: 10px;
+  position: fixed; // 고정 위치
+  bottom: 0; // 화면 하단
+  left: 0; // 화면 왼쪽
+  right: 0; // 화면 오른쪽
+  max-width: 600px; // 최대 너비 설정
+  margin-left: auto; // 자동 마진으로 가운데 정렬
+  margin-right: auto; // 자동 마진으로 가운데 정렬
+  background: white; // 입력 필드 배경 색
 `;
 
 const inputFieldCSS = css`
