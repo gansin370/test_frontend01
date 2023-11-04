@@ -50,7 +50,7 @@ export default function SelectVideoView() {
               />
             </div>
             {isSelected && (
-              <video css={videoCSS} autoPlay loop muted>
+              <video css={videoCSS} autoPlay loop muted controls>
                 <source src={video.url} type="video/mp4" />
               </video>
             )}

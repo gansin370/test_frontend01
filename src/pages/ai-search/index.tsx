@@ -524,8 +524,8 @@ const chatContainerCSS = css`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 100vh;
-  max-height: 800px;
+  height: 100%;
+  max-height: 600px;
   padding: 20px;
   box-sizing: border-box;
   overflow: auto;
