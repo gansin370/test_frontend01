@@ -105,7 +105,7 @@ export default function MyPage() {
       if (!isConfirmed) return;
       try {
         await axios.delete(
-          `http://api.ua-apt.com/apartment?apartmentId=${apartmentId}`,
+          `https://api.ua-apt.com/apartment?apartmentId=${apartmentId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
