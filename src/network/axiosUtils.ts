@@ -67,7 +67,6 @@ export class NetworkManager {
 
   constructor() {
     this.baseURL = process.env.NEXT_PUBLIC_OUR_APT_SERVER_ROOT_URL as string;
-    // this.baseURL = "http://172.30.1.30:8000";
   }
 
   public readonly createInstance = (): AxiosInstance => {
