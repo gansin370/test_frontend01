@@ -4,6 +4,17 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
-}
+  images: {
+    domains: ["ua-apt.s3.ap-northeast-2.amazonaws.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ua-apt.s3.ap-northeast-2.amazonaws.com",
+        port: "",
+        pathname: "/**/*",
+      },
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

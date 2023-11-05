@@ -8,6 +8,10 @@ import Image from "next/image";
 import UserIconImg from "./userIconImg.jpg";
 import LoadingGif from "./loading.gif";
 import VideoPlayer from "@/components/Video";
+import Slider, { Settings } from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { getRem } from "@/styles/commonStyle";
 
 Modal.setAppElement("#__next");
 
@@ -135,6 +139,54 @@ const callApi = async (text: string): Promise<Message[]> => {
   }
 };
 
+// 이미지 슬라이더의 props에 대한 타입을 정의합니다.
+interface ImageSliderProps {
+  images: string[];
+}
+
+const thumbnailListCSS = css`
+  display: flex;
+  gap: ${getRem(12)};
+  margin-top: ${getRem(12)};
+
+  overflow-x: scroll;
+  padding: ${getRem(12)} 0;
+  &::-webkit-scrollbar {
+    height: 8px; /* 스크롤바의 높이 */
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2); /* 스크롤바 썸(움직이는 부분)의 색상 */
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1); /* 스크롤바 트랙(바탕)의 색상 */
+    border-radius: 4px;
+  }
+`;
+
+const imageWrapCSS = css`
+  width: ${getRem(120)};
+  height: ${getRem(120)};
+  border-radius: ${getRem(8)};
+  border: 1px solid #e5e5e5;
+`;
+
+export const ImageGallery: React.FC<ImageSliderProps> = ({ images }) => (
+  <div css={thumbnailListCSS}>
+    {images.map((src, index) => (
+      <div key={index} css={imageWrapCSS}>
+        <Image
+          width={120}
+          height={120}
+          css={imageWrapCSS}
+          src={"https://ua-apt.s3.ap-northeast-2.amazonaws.com/imgs/" + src}
+          alt={`Slide ${index}`}
+        />
+      </div>
+    ))}
+  </div>
+);
+
 export default function ChatPage() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -160,7 +212,6 @@ export default function ChatPage() {
     if (data === null) {
       return null;
     }
-    console.log(data.videoUrl);
     return (
       <Modal
         isOpen={modalIsOpen}
@@ -171,9 +222,11 @@ export default function ChatPage() {
             backgroundColor: "rgba(205, 230, 237, 0.75)",
           },
           content: {
-            maxWidth: "800px",
+            width: "800px",
             maxHeight: "90vh",
             overflow: "auto",
+            maxWidth: "100%",
+            overflowX: "hidden",
             top: "50%",
             left: "50%",
             right: "auto",
@@ -187,16 +240,43 @@ export default function ChatPage() {
           },
         }}
       >
-        <div style={{ marginBottom: "20px" }}>
-          <h1
+        <div
+          style={{
+            marginBottom: "20px",
+          }}
+        >
+          <div
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: "32px",
+              fontWeight: "bold",
+              width: "100%",
               borderBottom: "2px solid #00baf2",
               paddingBottom: "10px",
               color: "#00baf2",
             }}
           >
-            아파트 정보
-          </h1>
+            <span style={{ width: "500px" }}>아파트 정보</span>
+
+            <button
+              onClick={() => closeModal()}
+              style={{
+                fontSize: "18px",
+                padding: "10px 20px",
+                height: "40px",
+                backgroundColor: "#00baf2",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <span>X</span>
+            </button>
+          </div>
         </div>
 
         <div
@@ -231,6 +311,18 @@ export default function ChatPage() {
             >
               {showVideo ? "비디오 숨기기" : "비디오 보기"}
             </button>
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>아파트 이미지</strong>
+            <ImageGallery images={data.apartmentImgs} />
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>평면도 이미지</strong>
+            <ImageGallery images={data.floorPlanImgs} />
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>창밖 전망 이미지</strong>
+            <ImageGallery images={data.windowOutsideImgs} />
           </div>
           <strong>주소:</strong> {data.address}
           <div>
@@ -289,24 +381,6 @@ export default function ChatPage() {
             </div>
           </div>
         </div>
-
-        <button
-          onClick={() => closeModal()}
-          style={{
-            marginLeft: "80%",
-            marginTop: "20px",
-            padding: "10px 20px",
-            height: "40px",
-            backgroundColor: "#00baf2",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <h2>X</h2>
-        </button>
       </Modal>
     );
   };
@@ -315,7 +389,6 @@ export default function ChatPage() {
     setSelectedData(data);
     setTimeout(() => {
       setModalIsOpen(true);
-      document.body.style.overflow = "hidden";
     }, 10);
   };
 

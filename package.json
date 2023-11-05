@@ -16,6 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/lodash-es": "^4.17.10",
+    "@types/react-slick": "^0.23.11",
     "axios": "^1.6.0",
     "cookies-next": "^4.0.0",
     "dayjs": "^1.11.10",
@@ -28,6 +29,7 @@
     "react-dom": "^18",
     "react-kakao-maps-sdk": "^1.1.24",
     "react-modal": "^3.16.1",
+    "react-slick": "^0.29.0",
     "react-spinners": "^0.13.8",
     "zustand": "^4.4.4"
   },
@@ -39,6 +41,7 @@
     "@types/react-modal": "^3.16.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.0",
+    "slick-carousel": "^1.8.1",
     "typescript": "^5"
   }
 }
