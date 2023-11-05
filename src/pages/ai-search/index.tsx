@@ -144,34 +144,11 @@ interface ImageSliderProps {
   images: string[];
 }
 
-const sliderStyle = {
-  display: "flex", // Flexbox를 사용하여 내용을 가운데 정렬합니다.
-  justifyContent: "center", // 가로 방향 중앙 정렬
-  alignItems: "center", // 세로 방향 중앙 정렬
-  maxWidth: "50%", // 슬라이더의 너비를 부모의 너비만큼으로 설정
-  height: "100%", // 슬라이더의 높이를 부모의 높이만큼으로 설정
-};
-
-const galleryStyle: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-
-  overflowX: "auto", // 이제 올바른 타입으로 인식됩니다.
-  gap: "10px",
-};
-
-const imageStyle = {
-  maxHeight: "200px", // 이미지의 최대 높이를 제한
-  maxWidth: "100%", // 이미지의 최대 너비를 제한
-  borderRadius: "10px", // 이미지의 모서리를 둥글게
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // 그림자 효과 추가
-};
-
 const thumbnailListCSS = css`
   display: flex;
   gap: ${getRem(12)};
   margin-top: ${getRem(12)};
+
   overflow-x: scroll;
   padding: ${getRem(12)} 0;
   &::-webkit-scrollbar {
@@ -245,9 +222,11 @@ export default function ChatPage() {
             backgroundColor: "rgba(205, 230, 237, 0.75)",
           },
           content: {
-            maxWidth: "800px",
+            width: "800px",
             maxHeight: "90vh",
             overflow: "auto",
+            maxWidth: "100%",
+            overflowX: "hidden",
             top: "50%",
             left: "50%",
             right: "auto",
@@ -261,16 +240,43 @@ export default function ChatPage() {
           },
         }}
       >
-        <div style={{ marginBottom: "20px" }}>
-          <h1
+        <div
+          style={{
+            marginBottom: "20px",
+          }}
+        >
+          <div
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: "32px",
+              fontWeight: "bold",
+              width: "100%",
               borderBottom: "2px solid #00baf2",
               paddingBottom: "10px",
               color: "#00baf2",
             }}
           >
-            아파트 정보
-          </h1>
+            <span style={{ width: "500px" }}>아파트 정보</span>
+
+            <button
+              onClick={() => closeModal()}
+              style={{
+                fontSize: "18px",
+                padding: "10px 20px",
+                height: "40px",
+                backgroundColor: "#00baf2",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <span>X</span>
+            </button>
+          </div>
         </div>
 
         <div
@@ -375,24 +381,6 @@ export default function ChatPage() {
             </div>
           </div>
         </div>
-
-        <button
-          onClick={() => closeModal()}
-          style={{
-            marginLeft: "80%",
-            marginTop: "20px",
-            padding: "10px 20px",
-            height: "40px",
-            backgroundColor: "#00baf2",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <h2>X</h2>
-        </button>
       </Modal>
     );
   };
@@ -401,7 +389,6 @@ export default function ChatPage() {
     setSelectedData(data);
     setTimeout(() => {
       setModalIsOpen(true);
-      document.body.style.overflow = "hidden";
     }, 10);
   };
 
