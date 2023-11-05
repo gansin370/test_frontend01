@@ -21,10 +21,10 @@ type KakaoMapProps = {
 
 const KakaoMap: React.FC<KakaoMapProps> = ({ lat, lng }) => {
   return (
-    <div style={{ zIndex: 1, marginTop: "30px" }}>
+    <div style={{ zIndex: 2, marginTop: "30px" }}>
       <Map
         center={{ lat, lng }}
-        style={{ width: "450px", height: "400px", zIndex: 1 }}
+        style={{ width: "100%", aspectRatio: 1 / 1, zIndex: 1 }}
         level={3}
         draggable={false}
       >
@@ -101,6 +101,7 @@ export default function EnterAddressView() {
 
 const containerCSS = css`
   padding: ${getRem(20)} ${getRem(24)};
+  overflow-y: scroll;
 `;
 
 const rowCSS = css`

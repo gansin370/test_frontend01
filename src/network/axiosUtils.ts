@@ -66,7 +66,8 @@ export class NetworkManager {
   private instance: AxiosInstance | undefined;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_OUR_APT_SERVER_ROOT_URL as string;
+    // this.baseURL = process.env.NEXT_PUBLIC_OUR_APT_SERVER_ROOT_URL as string;
+    this.baseURL = "https://api.ua-apt.com"
   }
 
   public readonly createInstance = (): AxiosInstance => {
