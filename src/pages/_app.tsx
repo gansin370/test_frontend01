@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import useInitialize from "@/hook/useInitialize";
+import AxiosProvider from "@/network/AxiosProvider";
 import GlobalStyle from "@/styles/globalStyle";
 import theme from "@/styles/theme";
 import { ThemeProvider } from "@emotion/react";
@@ -20,14 +21,16 @@ const KakaoMap = () => {
 export default function App({ Component, pageProps }: AppProps) {
   useInitialize();
   return (
-    <ThemeProvider theme={theme}>
-      <KakaoMap />
-      <GlobalStyle />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-      <div id="side-bar" />
-      <div id="spinner" />
-    </ThemeProvider>
+    <AxiosProvider>
+      <ThemeProvider theme={theme}>
+        <KakaoMap />
+        <GlobalStyle />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+        <div id="side-bar" />
+        <div id="spinner" />
+      </ThemeProvider>
+    </AxiosProvider>
   );
 }
