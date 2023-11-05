@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import useToken from "./useToken";
 import { useUserStore } from "@/store/user";
+import oaRequest from "@/network/oaRequest";
+import { axiosMethod } from "@/network/axiosUtils";
 
 export default function useInitialize() {
   const { token } = useToken();
@@ -8,13 +10,14 @@ export default function useInitialize() {
   useEffect(() => {
     if (token) {
       // 세션 체크 로직
-      setUser({
-        id: 1,
-        name: "test",
-        email: "test@example.com",
+      oaRequest<User>({
+        method: axiosMethod.GET,
+        url: "/auth/info",
+      }).then((res) => {
+        setUser(res.data);
       });
     }
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {

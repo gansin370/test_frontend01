@@ -21,6 +21,12 @@ const KakaoMap = () => {
 };
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { setToken } = useToken();
+  useEffect(() => {
+    setToken(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJleHAiOjE3MzA3MDk5NDYuMjM3LCJpYXQiOjE2OTkxNzM5NDYuMjM3fQ.-DgWTCQB1Sa7nEz60Ts0gxFGcwfaDcZyEJSLTYSQh2U"
+    );
+  }, []);
   useInitialize();
   return (
     <AxiosProvider>
