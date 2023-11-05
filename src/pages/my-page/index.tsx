@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import { ImageGallery } from "../ai-search";
 //
 interface Apartment {
   apartmentId: number;
@@ -23,6 +24,9 @@ interface Apartment {
   longitude: number;
   transactionMethod: TransactionMethod;
   videoUrl?: string;
+  apartmentImgs: string[];
+  floorPlanImgs: string[];
+  windowOutsideImgs: string[];
 }
 
 // 층 정보에 대한 타입 정의
@@ -323,6 +327,19 @@ const ApartmentItem: React.FC<ApartmentItemProps> = ({
       <button onClick={onToggle}>{isOpen ? "정보 숨기기" : "정보 보기"}</button>
       {isOpen && (
         <div style={{ marginTop: "10px" }}>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>아파트 이미지</strong>
+            <ImageGallery images={apartment.apartmentImgs} />
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>평면도 이미지</strong>
+            <ImageGallery images={apartment.floorPlanImgs} />
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>창밖 전망 이미지</strong>
+            <ImageGallery images={apartment.windowOutsideImgs} />
+          </div>
+
           <p>
             <strong>구조:</strong> {apartment.apartmentStructure}
           </p>

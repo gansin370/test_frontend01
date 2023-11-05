@@ -8,6 +8,10 @@ import Image from "next/image";
 import UserIconImg from "./userIconImg.jpg";
 import LoadingGif from "./loading.gif";
 import VideoPlayer from "@/components/Video";
+import Slider, { Settings } from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { getRem } from "@/styles/commonStyle";
 
 Modal.setAppElement("#__next");
 
@@ -135,6 +139,77 @@ const callApi = async (text: string): Promise<Message[]> => {
   }
 };
 
+// 이미지 슬라이더의 props에 대한 타입을 정의합니다.
+interface ImageSliderProps {
+  images: string[];
+}
+
+const sliderStyle = {
+  display: "flex", // Flexbox를 사용하여 내용을 가운데 정렬합니다.
+  justifyContent: "center", // 가로 방향 중앙 정렬
+  alignItems: "center", // 세로 방향 중앙 정렬
+  maxWidth: "50%", // 슬라이더의 너비를 부모의 너비만큼으로 설정
+  height: "100%", // 슬라이더의 높이를 부모의 높이만큼으로 설정
+};
+
+const galleryStyle: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+  overflowX: "auto", // 이제 올바른 타입으로 인식됩니다.
+  gap: "10px",
+};
+
+const imageStyle = {
+  maxHeight: "200px", // 이미지의 최대 높이를 제한
+  maxWidth: "100%", // 이미지의 최대 너비를 제한
+  borderRadius: "10px", // 이미지의 모서리를 둥글게
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // 그림자 효과 추가
+};
+
+const thumbnailListCSS = css`
+  display: flex;
+  gap: ${getRem(12)};
+  margin-top: ${getRem(12)};
+  overflow-x: scroll;
+  padding: ${getRem(12)} 0;
+  &::-webkit-scrollbar {
+    height: 8px; /* 스크롤바의 높이 */
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2); /* 스크롤바 썸(움직이는 부분)의 색상 */
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1); /* 스크롤바 트랙(바탕)의 색상 */
+    border-radius: 4px;
+  }
+`;
+
+const imageWrapCSS = css`
+  width: ${getRem(120)};
+  height: ${getRem(120)};
+  border-radius: ${getRem(8)};
+  border: 1px solid #e5e5e5;
+`;
+
+export const ImageGallery: React.FC<ImageSliderProps> = ({ images }) => (
+  <div css={thumbnailListCSS}>
+    {images.map((src, index) => (
+      <div key={index} css={imageWrapCSS}>
+        <Image
+          width={120}
+          height={120}
+          css={imageWrapCSS}
+          src={"https://ua-apt.s3.ap-northeast-2.amazonaws.com/imgs/" + src}
+          alt={`Slide ${index}`}
+        />
+      </div>
+    ))}
+  </div>
+);
+
 export default function ChatPage() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -160,7 +235,6 @@ export default function ChatPage() {
     if (data === null) {
       return null;
     }
-    console.log(data.videoUrl);
     return (
       <Modal
         isOpen={modalIsOpen}
@@ -231,6 +305,18 @@ export default function ChatPage() {
             >
               {showVideo ? "비디오 숨기기" : "비디오 보기"}
             </button>
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>아파트 이미지</strong>
+            <ImageGallery images={data.apartmentImgs} />
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>평면도 이미지</strong>
+            <ImageGallery images={data.floorPlanImgs} />
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <strong>창밖 전망 이미지</strong>
+            <ImageGallery images={data.windowOutsideImgs} />
           </div>
           <strong>주소:</strong> {data.address}
           <div>

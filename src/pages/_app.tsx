@@ -1,3 +1,4 @@
+//
 import Layout from "@/components/Layout";
 import useInitialize from "@/hook/useInitialize";
 import useToken from "@/hook/useToken";
@@ -9,6 +10,7 @@ import type { AppProps } from "next/app";
 import Script from "next/script";
 import { useEffect } from "react";
 import { Map } from "react-kakao-maps-sdk";
+// CSS 파일들을 추가합니다.
 
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=2e2b2788f655c9971cf6e4dfd4fbf106&autoload=false`;
 
