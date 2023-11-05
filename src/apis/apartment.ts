@@ -1,6 +1,7 @@
 import { axiosMethod } from "@/network/axiosUtils";
 import oaRequest from "@/network/oaRequest";
 import axios from "axios";
+import { getCookie } from "cookies-next";
 
 interface CreateApartmentParams {
   userType: string; // 세입자, 집주인
@@ -62,6 +63,7 @@ export const createApartment = async ({
   };
 }) => {
   const formData = new FormData();
+  const token = getCookie("token");
   formData.append("createApartment", JSON.stringify(params));
 
   if (images.roomImages) {
@@ -83,8 +85,7 @@ export const createApartment = async ({
     method: axiosMethod.POST,
     url: "/apartment/create",
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImV4cCI6MTczMDE4NjY4My42NjksImlhdCI6MTY5ODY1MDY4My42Njl9.TuYAi2NDdm9d_ZE-OF5xTaia27YXokJj9uJKuLCtVfw",
+      Authorization: `Bearer ${token}`,
     },
     requestBody: formData,
   });

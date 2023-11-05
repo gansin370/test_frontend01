@@ -36,6 +36,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({ lat, lng }) => {
 
 export default function EnterAddressView() {
   const { addressInfo, setAddressInfo } = useRegisterAptStore();
+  console.log(addressInfo);
   const onSelectAddress = async (_address: string) => {
     try {
       // 위경도 데이터를 가져오기 위해 필요
