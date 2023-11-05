@@ -166,86 +166,90 @@ export default function MyPage() {
 
   return (
     <div css={containerCSS}>
-      <h1
-        style={{
-          borderBottom: "2px solid #00baf2",
-          paddingBottom: "10px",
-          color: "#00baf2",
-          marginBottom: "20px",
-        }}
-      >
-        내 정보
-      </h1>
-      {!isEditing ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <h2>이름 : {userName}</h2>
-          <h3
-            style={{
-              color: "gray",
-              marginLeft: "10px",
-              cursor: "pointer",
-            }}
-            onClick={() => setIsEditing(true)} // 수정 버튼 클릭 시 isEditing을 true로 설정
-          >
-            수정
-          </h3>
-        </div>
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <input
-            height="30px"
-            value={newUserName}
-            onChange={(e) => setNewUserName(e.target.value)}
-            style={{
-              marginRight: "10px",
-              height: "30px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <button
-            onClick={updateUserName}
-            style={{
-              marginRight: "10px",
-            }}
-          >
-            확인
-          </button>
-          <button onClick={() => setIsEditing(false)}>취소</button>
-        </div>
-      )}
-      <h1
-        style={{
-          borderBottom: "2px solid #00baf2",
-          paddingBottom: "10px",
-          color: "#00baf2",
-          marginTop: "20px",
-          marginBottom: "20px",
-        }}
-      >
-        내가 등록한 매물
-      </h1>
       <div>
-        {apartments.map((apartment: Apartment) => (
-          <ApartmentItem
-            key={apartment.apartmentId}
-            apartment={apartment}
-            onToggle={() => handleToggle(apartment.apartmentId)}
-            isOpen={toggle[apartment.apartmentId]}
-            handleDelete={handleDelete}
-          />
-        ))}
+        <h1
+          style={{
+            borderBottom: "2px solid #00baf2",
+            paddingBottom: "10px",
+            color: "#00baf2",
+            marginBottom: "20px",
+          }}
+        >
+          내 정보
+        </h1>
+        {!isEditing ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <h2>이름 : {userName}</h2>
+            <h3
+              style={{
+                color: "gray",
+                marginLeft: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => setIsEditing(true)} // 수정 버튼 클릭 시 isEditing을 true로 설정
+            >
+              수정
+            </h3>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <input
+              height="30px"
+              value={newUserName}
+              onChange={(e) => setNewUserName(e.target.value)}
+              style={{
+                marginRight: "10px",
+                height: "30px",
+                border: "1px solid #ccc",
+              }}
+            />
+            <button
+              onClick={updateUserName}
+              style={{
+                marginRight: "10px",
+              }}
+            >
+              확인
+            </button>
+            <button onClick={() => setIsEditing(false)}>취소</button>
+          </div>
+        )}
+      </div>
+      <div>
+        <h1
+          style={{
+            borderBottom: "2px solid #00baf2",
+            paddingBottom: "10px",
+            color: "#00baf2",
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          내가 등록한 매물
+        </h1>
+        <div>
+          {apartments.map((apartment: Apartment) => (
+            <ApartmentItem
+              key={apartment.apartmentId}
+              apartment={apartment}
+              onToggle={() => handleToggle(apartment.apartmentId)}
+              isOpen={toggle[apartment.apartmentId]}
+              handleDelete={handleDelete}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -421,11 +425,10 @@ const containerCSS = css`
   max-width: ${getRem(500)};
   margin: 0 auto;
   width: 100%;
+  height: 100%;
   border-right: 1px solid #e5e5e5;
   border-left: 1px solid #e5e5e5;
-  flex-grow: 1;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
   padding-bottom: ${getRem(20)};
   overflow: auto;
