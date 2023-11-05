@@ -7,6 +7,7 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import Image from "next/image";
 import UserIconImg from "./userIconImg.jpg";
 import LoadingGif from "./loading.gif";
+import VideoPlayer from "@/components/Video";
 
 Modal.setAppElement("#__next");
 
@@ -202,23 +203,16 @@ export default function ChatPage() {
           style={{
             fontSize: "16px",
             lineHeight: "1.6",
-            userSelect: "all",
+            userSelect: "text",
           }}
         >
           {data.videoUrl && showVideo && (
             <div style={{ marginBottom: "20px" }}>
-              <video
-                autoPlay
-                loop
-                muted
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "450px",
-                }}
-              >
-                <source src={data.videoUrl} type="video/mp4" />
-                죄송합니다, 비디오를 불러오는데 문제가 생겼습니다.
-              </video>
+              <VideoPlayer
+                src={
+                  "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uavideo-t1/uavideo_01.m3u8"
+                }
+              />
             </div>
           )}
           <div>
