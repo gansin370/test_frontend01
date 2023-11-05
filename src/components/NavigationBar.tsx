@@ -69,6 +69,7 @@ const containerCSS = (theme: Theme) => css`
 
   align-items: center;
   padding: ${getRem(16)} ${getRem(40)};
+  padding-right: ${getRem(12)};
   border-bottom: 1px solid #e5e5e5;
 
   ${theme.media.desktop} {
@@ -77,6 +78,7 @@ const containerCSS = (theme: Theme) => css`
 
   ${theme.media.mobile} {
     padding: ${getRem(16)} ${getRem(24)};
+    padding-right: ${getRem(8)};
   }
 `;
 
@@ -121,6 +123,10 @@ const menuCSS = (theme: Theme) =>
     display: none;
 
     ${theme.media.mobileAndTablet} {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: ${getRem(40)};
+      height: ${getRem(40)};
     }
   `;
