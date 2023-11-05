@@ -15,10 +15,15 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@types/lodash-es": "^4.17.10",
     "axios": "^1.6.0",
     "cookies-next": "^4.0.0",
     "dayjs": "^1.11.10",
+<<<<<<< HEAD
     "hls.js": "^1.4.12",
+=======
+    "lodash-es": "^4.17.21",
+>>>>>>> db36a0243ba5b540328544434f4754e572ca328c
     "next": "13.2.4",
     "qs": "^6.11.2",
     "react": "^18",
