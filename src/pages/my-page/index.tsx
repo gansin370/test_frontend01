@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { ImageGallery } from "../ai-search";
+import withAuth from "@/hoc/withAuth";
 //
 interface Apartment {
   apartmentId: number;
@@ -73,7 +74,7 @@ interface ApartmentItemProps {
   handleDelete: (apartmentId: number) => void;
 }
 
-export default function MyPage() {
+function MyPage() {
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [userName, setUserName] = useState<string>("");
   const [toggle, setToggle] = useState<{ [key: number]: boolean }>({});
@@ -451,3 +452,5 @@ const containerCSS = css`
   overflow: auto;
   padding: ${getRem(20)} ${getRem(24)};
 `;
+
+export default withAuth(MyPage);
