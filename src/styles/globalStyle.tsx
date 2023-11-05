@@ -9,7 +9,7 @@ const globalCSS = css`
   }
 
   #__next {
-    height: 100vh;
+
   }
 
   a {

@@ -507,6 +507,7 @@ const WrapperCSS = css`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
 `;
 
 const titleCss = css`
@@ -521,7 +522,7 @@ const chatContainerCSS = css`
   align-items: center; // 가로축 중앙 정렬
   width: 100%;
   max-width: 600px; // 최대 가로 크기 설정
-  height: 100vh; // 뷰포트의 전체 높이로 설정
+  height: 100%;
   margin-top: 20px; // 상단 마진
   margin-left: auto; // 가운데 정렬을 위한 설정
   margin-right: auto; // 가운데 정렬을 위한 설정

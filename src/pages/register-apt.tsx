@@ -215,6 +215,7 @@ const containerCSS = css`
   flex-direction: column;
   padding-bottom: ${getRem(20)};
   overflow: hidden;
+  height: 100%;
 `;
 
 const buttonContainerCSS = css`
