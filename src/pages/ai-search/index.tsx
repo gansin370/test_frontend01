@@ -203,7 +203,7 @@ export default function ChatPage() {
           style={{
             fontSize: "16px",
             lineHeight: "1.6",
-            userSelect: "all",
+            userSelect: "text",
           }}
         >
           {data.videoUrl && showVideo && (
