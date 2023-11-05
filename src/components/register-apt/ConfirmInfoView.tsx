@@ -143,7 +143,7 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
         },
       });
       alert("등록이 완료되었습니다.");
-      router.push(ROUTES.MY_PAGE.MY_APARTMENT);
+      router.push(ROUTES.MY_PAGE.HOME);
     } catch (e) {
       console.log(e);
       alert("등록 중 에러가 발생했습니다.");
