@@ -9,7 +9,6 @@ const globalCSS = css`
   }
 
   #__next {
-
   }
 
   a {
@@ -44,9 +43,8 @@ const globalCSS = css`
   * {
     margin: 0;
     padding: 0;
-    font-family: NotoSansCJK-KR, -apple-system, BlinkMacSystemFont, Segoe UI,
-      Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-      sans-serif;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     border: none;
     box-sizing: border-box;
     background-color: transparent;
