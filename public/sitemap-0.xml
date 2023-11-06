@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://www.ua-apt.com</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/ai-search</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/chat</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/document</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/inquiry</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/login</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/my-page</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/my-page/my-apartment</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/price</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/register-apt</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.ua-apt.com/ua-token</loc><lastmod>2023-11-06T12:01:12.955Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+</urlset>

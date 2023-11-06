@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
     "lint": "next lint"
   },
@@ -41,6 +42,7 @@
     "@types/react-modal": "^3.16.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.0",
+    "next-sitemap": "^4.2.3",
     "slick-carousel": "^1.8.1",
     "typescript": "^5"
   }
