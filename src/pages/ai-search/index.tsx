@@ -12,6 +12,7 @@ import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getRem } from "@/styles/commonStyle";
+import withAuth from "@/hoc/withAuth";
 
 Modal.setAppElement("#__next");
 
@@ -187,7 +188,7 @@ export const ImageGallery: React.FC<ImageSliderProps> = ({ images }) => (
   </div>
 );
 
-export default function ChatPage() {
+function ChatPage() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState("");
@@ -641,3 +642,5 @@ const sendButtonCSS = css`
     background-color: #0056b3;
   }
 `;
+
+export default withAuth(ChatPage);
