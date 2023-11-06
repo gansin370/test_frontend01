@@ -12,8 +12,9 @@ export default function Home() {
       <main>
         <div css={titleWrapCSS}>
           <h1 css={titleCSS}>
-            Metaverse를 통한
-            <br /> 집 구조 확인
+            아파트 직거래
+            <br />
+            플랫폼 서비스!
           </h1>
         </div>
 
@@ -24,6 +25,7 @@ export default function Home() {
               type="video/mp4"
             />
           </video>
+          <div css={descCSS}>PC에서 이용하실 길 추천합니다.</div>
           <div css={imageContainerCSS}>
             <div css={imageWrapCSS}>
               <Image src={Interior1} alt="인테리어 사진" fill />
@@ -58,6 +60,13 @@ const titleCSS = (theme: Theme) => css`
       display: none;
     }
   }
+`;
+
+const descCSS = css`
+  margin-top: ${getRem(20)};
+  font-size: ${getRem(12)};
+  color: #3d3d3d;
+  text-align: center;
 `;
 
 const mediaContainerCSS = (theme: Theme) => css`
