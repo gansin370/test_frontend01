@@ -44,7 +44,7 @@ export default function NavigationBar() {
       </nav>
 
       <button css={menuCSS} onClick={() => setIsSideBarOpen(true)}>
-        <FontAwesomeIcon icon={faBars} size="lg" />
+        <FontAwesomeIcon icon={faBars} size="lg" color={"#00baf2"} />
       </button>
 
       {!!user ? (
