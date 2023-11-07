@@ -63,9 +63,19 @@ export default function Home() {
         >
           <div css={desktopCSS}>
             <div css={mediaContainerCSS}>
-              <div css={desktopImageWrapCSS}>
-                <Image src={MainApartment} alt="메인 아파트" fill />
-              </div>
+              <video
+                css={videoCSS}
+                autoPlay
+                loop
+                muted
+                src={
+                  "https://d22mbkaaqujaqr.cloudfront.net/videos/ua_metaverse_spacevideo.mp4"
+                }
+                playsInline
+                preload="auto"
+              >
+                동영상을 지원하지 않는 브라우저입니다.
+              </video>
               <div css={imageContainerCSS}>
                 <video css={desktopVideoCSS} autoPlay loop muted playsInline preload="auto">
                   <source
