@@ -67,10 +67,15 @@ const titleCSS = (theme: Theme) => css`
 `;
 
 const descCSS = css`
-  margin-top: ${getRem(20)};
-  font-size: ${getRem(12)};
-  color: #3d3d3d;
-  text-align: center;
+  opacity: 0;
+
+  @media (max-width: 600px) {
+    margin-top: ${getRem(20)};
+    font-size: ${getRem(12)};
+    color: #3d3d3d;
+    text-align: center;
+    opacity: 1;
+  }
 `;
 
 const mediaContainerCSS = (theme: Theme) => css`

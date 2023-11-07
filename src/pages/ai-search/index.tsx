@@ -8,7 +8,6 @@ import Image from "next/image";
 import UserIconImg from "./userIconImg.jpg";
 import LoadingGif from "./loading.gif";
 import VideoPlayer from "@/components/Video";
-import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getRem } from "@/styles/commonStyle";
