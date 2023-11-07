@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getRem } from "@/styles/commonStyle";
 import withAuth from "@/hoc/withAuth";
+import Head from "next/head";
 
 Modal.setAppElement("#__next");
 
@@ -427,6 +428,9 @@ function ChatPage() {
 
   return (
     <div css={WrapperCSS}>
+      <Head>
+        <title>우리의 아파트</title>
+      </Head>
       <ModalContent data={selectedData} />
       <h2 css={titleCss}>우아한 AI 아파트 검색</h2>
       <div css={chatContainerCSS}>

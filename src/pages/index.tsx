@@ -5,10 +5,14 @@ import Interior1 from "public/images/interior1.jpg";
 import Interior2 from "public/images/interior2.jpg";
 import Image from "../components/Image";
 import Footer from "@/components/Footer";
+import Head from "next/head";
 
 export default function Home() {
   return (
     <div css={containerCSS}>
+      <Head>
+        <title>우리의 아파트</title>
+      </Head>
       <main>
         <div css={titleWrapCSS}>
           <h1 css={titleCSS}>
