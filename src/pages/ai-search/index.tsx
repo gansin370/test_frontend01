@@ -7,8 +7,6 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import Image from "next/image";
 import UserIconImg from "./userIconImg.jpg";
 import LoadingGif from "./loading.gif";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { getRem } from "@/styles/commonStyle";
 import withAuth from "@/hoc/withAuth";
 import Head from "next/head";

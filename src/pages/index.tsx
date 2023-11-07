@@ -1,8 +1,8 @@
 import { getRem } from "@/styles/commonStyle";
 import { Theme } from "@emotion/react";
 import { css } from "@emotion/react";
-import Interior1 from "public/images/interior1.jpg";
-import Interior2 from "public/images/interior2.jpg";
+
+import MainApartment from "public/images/apartment-main.png";
 
 import Intro1 from "public/images/intro1.png";
 import Intro2 from "public/images/intro2.png";
@@ -23,7 +23,7 @@ export default function Home() {
       <main>
         <div css={titleWrapCSS}>
           <h1 css={titleCSS}>
-            아파트 직거래
+            아파트 직거래{" "}
             <br />
             플랫폼 서비스!
           </h1>
@@ -62,19 +62,22 @@ export default function Home() {
         >
           <div css={desktopCSS}>
             <div css={mediaContainerCSS}>
-              <video css={videoCSS} autoPlay loop muted>
-                <source
-                  src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
-                  type="video/mp4"
-                />
-              </video>
+              <div css={desktopImageWrapCSS}>
+                <Image src={MainApartment} alt="메인 아파트" fill />
+              </div>
               <div css={imageContainerCSS}>
-                <div css={imageWrapCSS}>
-                  <Image src={Interior1} alt="인테리어 사진" fill />
-                </div>
-                <div css={imageWrapCSS}>
-                  <Image src={Interior2} alt="인테리어 사진" fill />
-                </div>
+                <video css={desktopVideoCSS} autoPlay loop muted>
+                  <source
+                    src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
+                    type="video/mp4"
+                  />
+                </video>
+                <video css={desktopVideoCSS} autoPlay loop muted>
+                  <source
+                    src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
+                    type="video/mp4"
+                  />
+                </video>
               </div>
             </div>
           </div>
@@ -88,7 +91,7 @@ export default function Home() {
             <Image src={Intro2} alt="사진" fill />
           </div>
           <div
-            css={rowImageItemCSS(1 / 1.2, 25 * 0.67)}
+            css={rowImageItemCSS(1 / 1.2, 25 * 0.64)}
             style={{ marginLeft: getRem(16) }}
           >
             <Image src={Intro3} alt="사진" fill />
@@ -156,6 +159,7 @@ const imageContainerCSS = (theme: Theme) => css`
   justify-content: space-between;
   ${theme.media.desktop} {
     width: 25vw;
+    gap: ${getRem(16)};
   }
 `;
 
@@ -168,7 +172,7 @@ const imageWrapCSS =
       aspect-ratio: ${aspectRatio};
 
       ${theme.media.desktop} {
-        width: 25vw;
+        width: 30vw;
 
         aspect-ratio: 40/25;
       }
@@ -201,3 +205,16 @@ const rowImageItemCSS = (aspectRatio: number, maxWidth?: number) => css`
   width: ${maxWidth ? maxWidth : 25}%;
   aspect-ratio: ${aspectRatio};
 `;
+
+const desktopImageWrapCSS = (theme: Theme) =>
+  css`
+    position: relative;
+    width: 70vw;
+  `;
+
+const desktopVideoCSS = (theme: Theme) =>
+  css`
+    position: relative;
+
+    width: 25vw;
+  `;
