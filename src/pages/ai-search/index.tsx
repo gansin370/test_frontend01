@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { getRem } from "@/styles/commonStyle";
 import withAuth from "@/hoc/withAuth";
 import Head from "next/head";
+import CLOUD_FRONT_URL from "@/store/cloudfront";
 
 Modal.setAppElement("#__next");
 
@@ -180,7 +181,7 @@ export const ImageGallery: React.FC<ImageSliderProps> = ({ images }) => (
           width={120}
           height={120}
           css={imageWrapCSS}
-          src={"https://ua-apt.s3.ap-northeast-2.amazonaws.com/imgs/" + src}
+          src={CLOUD_FRONT_URL + "imgs/" + src}
           alt={`Slide ${index}`}
         />
       </div>
@@ -289,11 +290,16 @@ function ChatPage() {
         >
           {data.videoUrl && showVideo && (
             <div style={{ marginBottom: "20px" }}>
-              <VideoPlayer
-                src={
-                  "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uavideo-t1/uavideo_01.m3u8"
-                }
-              />
+              <video
+                autoPlay
+                loop
+                muted
+                src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
+                playsInline // iOS에서 전체 화면으로 자동 재생을 방지
+                preload="auto"
+              >
+                동영상을 지원하지 않는 브라우저입니다.
+              </video>
             </div>
           )}
           <div>
