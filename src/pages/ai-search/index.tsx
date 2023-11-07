@@ -7,7 +7,6 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import Image from "next/image";
 import UserIconImg from "./userIconImg.jpg";
 import LoadingGif from "./loading.gif";
-import VideoPlayer from "@/components/Video";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getRem } from "@/styles/commonStyle";
@@ -214,6 +213,7 @@ function ChatPage() {
     if (data === null) {
       return null;
     }
+
     return (
       <Modal
         isOpen={modalIsOpen}
@@ -291,6 +291,10 @@ function ChatPage() {
           {data.videoUrl && showVideo && (
             <div style={{ marginBottom: "20px" }}>
               <video
+                style={{
+                  width: "400px",
+                  height: "300px",
+                }}
                 autoPlay
                 loop
                 muted
