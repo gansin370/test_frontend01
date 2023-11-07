@@ -144,7 +144,7 @@ const mediaContainerCSS = (theme: Theme) => css`
 const videoCSS = (theme: Theme) => css`
   width: 100vw;
 
-  ${theme.media.desktopAndTablet} {
+  ${theme.media.desktop} {
     width: 60vw;
   }
 `;
