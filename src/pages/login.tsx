@@ -17,7 +17,8 @@ export default function LoginPage() {
   };
   return (
     <div css={containerCSS}>
-      <h2>안녕하세요! 회원가입 할 방법을 선택해주세요.</h2>
+      <h2>안녕하세요! </h2>
+      <h2 style={{ marginTop: "-50px" }}>회원가입 할 방법을 선택해주세요.</h2>
       <div>
         <button onClick={handleSocialLogin("kakao")}>
           <Image src={KakaoButton} alt="카카오 로그인" width={250} />

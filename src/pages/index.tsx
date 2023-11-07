@@ -3,6 +3,12 @@ import { Theme } from "@emotion/react";
 import { css } from "@emotion/react";
 import Interior1 from "public/images/interior1.jpg";
 import Interior2 from "public/images/interior2.jpg";
+
+import Intro1 from "public/images/intro1.png";
+import Intro2 from "public/images/intro2.png";
+import Intro3 from "public/images/intro3.png";
+import Intro4 from "public/images/intro4.png";
+
 import Image from "../components/Image";
 import Footer from "@/components/Footer";
 import Head from "next/head";
@@ -32,10 +38,16 @@ export default function Home() {
           <div css={descCSS}>PC에서 이용하실 길 추천합니다.</div>
           <div css={imageContainerCSS}>
             <div css={imageWrapCSS}>
-              <Image src={Interior1} alt="인테리어 사진" fill />
+              <Image src={Intro1} alt="사진" fill />
             </div>
             <div css={imageWrapCSS}>
-              <Image src={Interior2} alt="인테리어 사진" fill />
+              <Image src={Intro2} alt="사진" fill />
+            </div>
+            <div css={imageWrapCSS}>
+              <Image src={Intro3} alt="사진" fill />
+            </div>
+            <div css={imageWrapCSS}>
+              <Image src={Intro4} alt="사진" fill />
             </div>
           </div>
         </div>
@@ -106,14 +118,16 @@ const imageContainerCSS = css`
 `;
 
 const imageWrapCSS = (theme: Theme) => css`
-  width: 100vw;
   position: relative;
+  width: 100%;
+  height: 500px;
   aspect-ratio: 40/25;
 
   margin: ${getRem(20)} 0;
 
   ${theme.media.desktopAndTablet} {
-    width: 25vw;
+    width: 600px;
+    height: 400px;
     margin: 0;
   }
 `;

@@ -431,7 +431,7 @@ function ChatPage() {
         <title>우리의 아파트</title>
       </Head>
       <ModalContent data={selectedData} />
-      <h2 css={titleCss}>우아한 AI 아파트 검색</h2>
+      <h2 css={titleCss}>우리의 아파트 AI 매물 검색</h2>
       <div css={chatContainerCSS}>
         <div css={messagesContainerCSS}>
           {messages.map((message, index) => (
