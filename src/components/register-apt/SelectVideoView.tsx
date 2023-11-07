@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRegisterAptStore } from "@/store/register-apt";
+import CLOUD_FRONT_URL from "@/store/cloudfront";
 
 export interface Video {
   title: string;
@@ -50,8 +51,16 @@ export default function SelectVideoView() {
               />
             </div>
             {isSelected && (
-              <video css={videoCSS} autoPlay loop muted controls>
-                <source src={video.url} type="video/mp4" />
+              <video
+                css={videoCSS}
+                autoPlay
+                loop
+                muted
+                src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
+                playsInline // iOS에서 전체 화면으로 자동 재생을 방지
+                preload="auto"
+              >
+                동영상을 지원하지 않는 브라우저입니다.
               </video>
             )}
           </div>
@@ -93,26 +102,26 @@ const checkboxCSS = css`
 const videoList: Video[] = [
   {
     title: "A",
-    url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
+    url: CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4",
   },
   {
     title: "B",
-    url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
+    url: CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4",
   },
   {
     title: "C",
-    url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
+    url: CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4",
   },
   {
     title: "D",
-    url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
+    url: CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4",
   },
   {
     title: "E",
-    url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
+    url: CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4",
   },
   {
     title: "F",
-    url: "https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4",
+    url: CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4",
   },
 ];

@@ -12,6 +12,7 @@ import Intro4 from "public/images/intro4.png";
 import Image from "../components/Image";
 import Footer from "@/components/Footer";
 import Head from "next/head";
+import CLOUD_FRONT_URL from "@/store/cloudfront";
 
 export default function Home() {
   return (
