@@ -1,5 +1,9 @@
-User-Agent: *
+# *
+User-agent: *
 Allow: /
-Disallow: /private/
 
-Sitemap: https://acme.com/sitemap.xml
+# Host
+Host: https://www.ua-apt.com
+
+# Sitemaps
+Sitemap: https://www.ua-apt.com/sitemap.xml
