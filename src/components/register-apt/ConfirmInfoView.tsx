@@ -66,94 +66,6 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
     URL.createObjectURL(image)
   );
 
-  async function resizeImages(
-    imageFiles: File[],
-    maxWidth: number,
-    maxHeight: number,
-    maxSizeKB: number
-  ): Promise<File[]> {
-    const resizedFiles: File[] = [];
-
-    const resizeImage = (imageFile: File): Promise<File> => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-
-        reader.onload = () => {
-          const img = new Image();
-          img.src = reader.result as string;
-
-          img.onload = () => {
-            let width = img.width;
-            let height = img.height;
-
-            if (width > maxWidth || height > maxHeight) {
-              const aspectRatio = width / height;
-
-              if (width > maxWidth) {
-                width = maxWidth;
-                height = width / aspectRatio;
-              }
-
-              if (height > maxHeight) {
-                height = maxHeight;
-                width = height * aspectRatio;
-              }
-            }
-
-            const canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
-
-            const ctx = canvas.getContext("2d");
-            ctx?.drawImage(img, 0, 0, width, height);
-
-            canvas.toBlob(
-              async (blob) => {
-                if (blob) {
-                  if (blob.size / 1024 <= maxSizeKB) {
-                    const blobArray = await blob.arrayBuffer();
-                    const resizedImageFile = new File(
-                      [blobArray],
-                      imageFile.name,
-                      {
-                        type: "image/jpeg",
-                      }
-                    );
-
-                    resolve(resizedImageFile);
-                  } else {
-                    reject(new Error("이미지 크기가 제한을 초과했습니다."));
-                  }
-                } else {
-                  reject(new Error("이미지를 리사이즈할 수 없습니다."));
-                }
-              },
-              "image/jpeg",
-              0.7
-            );
-          };
-        };
-
-        reader.onerror = (err) => {
-          reject(err);
-        };
-
-        reader.readAsDataURL(imageFile);
-      });
-    };
-
-    const resizePromises = imageFiles.map((imageFile) =>
-      resizeImage(imageFile)
-    );
-
-    try {
-      const resizedImages = await Promise.all(resizePromises);
-      return resizedImages;
-    } catch (error) {
-      throw error;
-    }
-  }
-
   const getVideoUrl = () => {
     if (!roomSize) return;
     if (10 <= roomSize && roomSize <= 19 && bay === 1) {
@@ -196,24 +108,6 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
         return;
       }
 
-      const resizedRoomImages: File[] = await resizeImages(
-        roomImages,
-        1000,
-        1000,
-        200
-      );
-      const resizedFloorPlanImages: File[] | undefined = await resizeImages(
-        floorPlanImages || [],
-        1000,
-        1000,
-        200
-      );
-      const resizedViewImages: File[] | undefined = await resizeImages(
-        viewImages || [],
-        1000,
-        1000,
-        200
-      );
       await createApartment({
         params: {
           userType: aptSellerType,
@@ -259,9 +153,9 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
           videoUrl: getVideoUrl(),
         },
         images: {
-          roomImages: resizedRoomImages,
-          floorPlanImages: resizedFloorPlanImages ?? undefined,
-          viewImages: resizedViewImages ?? undefined,
+          roomImages,
+          floorPlanImages: floorPlanImages ?? undefined,
+          viewImages: viewImages ?? undefined,
         },
       });
       alert("등록이 완료되었습니다.");
