@@ -12,6 +12,7 @@ import Intro4 from "public/images/intro4.png";
 import Image from "../components/Image";
 import Footer from "@/components/Footer";
 import Head from "next/head";
+import CLOUD_FRONT_URL from "@/store/cloudfront";
 
 export default function Home() {
   return (
@@ -29,12 +30,18 @@ export default function Home() {
         </div>
 
         <div css={mediaContainerCSS}>
-          <video css={videoCSS} autoPlay loop muted>
-            <source
-              src="https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4"
-              type="video/mp4"
-            />
+          <video
+            css={videoCSS}
+            autoPlay
+            loop
+            muted
+            src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
+            playsInline // iOS에서 전체 화면으로 자동 재생을 방지
+            preload="auto"
+          >
+            동영상을 지원하지 않는 브라우저입니다.
           </video>
+
           <div css={descCSS}>PC에서 이용하실 길 추천합니다.</div>
           <div css={imageContainerCSS}>
             <div css={imageWrapCSS(1 / 1)}>
@@ -130,7 +137,6 @@ const imageWrapCSS =
       max-width: ${maxWidth ? `${maxWidth}%` : "100%"};
       width: 100%;
       aspect-ratio: ${aspectRatio};
-      
 
       ${theme.media.desktopAndTablet} {
         /* max-width: ${getRem(600)}; */
