@@ -37,16 +37,19 @@ export default function Home() {
           </video>
           <div css={descCSS}>PC에서 이용하실 길 추천합니다.</div>
           <div css={imageContainerCSS}>
-            <div css={imageWrapCSS}>
+            <div css={imageWrapCSS(1 / 1)}>
               <Image src={Intro1} alt="사진" fill />
             </div>
-            <div css={imageWrapCSS}>
+            <div css={imageWrapCSS(1 / 0.8)}>
               <Image src={Intro2} alt="사진" fill />
             </div>
-            <div css={imageWrapCSS}>
+            <div
+              css={imageWrapCSS(1 / 1.2, 67)}
+              style={{ marginLeft: getRem(16) }}
+            >
               <Image src={Intro3} alt="사진" fill />
             </div>
-            <div css={imageWrapCSS}>
+            <div css={imageWrapCSS(1 / 0.78)}>
               <Image src={Intro4} alt="사진" fill />
             </div>
           </div>
@@ -90,7 +93,7 @@ const mediaContainerCSS = (theme: Theme) => css`
   gap: ${getRem(24)};
   justify-content: center;
 
-  ${theme.media.mobile} {
+  ${theme.media.mobileAndTablet} {
     flex-direction: column;
   }
 `;
@@ -111,23 +114,26 @@ const videoCSS = (theme: Theme) => css`
   }
 `;
 
-const imageContainerCSS = css`
+const imageContainerCSS = (theme: Theme) => css`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-`;
-
-const imageWrapCSS = (theme: Theme) => css`
-  position: relative;
-  width: 100%;
-  height: 500px;
-  aspect-ratio: 40/25;
-
-  margin: ${getRem(20)} 0;
-
-  ${theme.media.desktopAndTablet} {
-    width: 600px;
-    height: 400px;
-    margin: 0;
+  /* align-items: center; */
+  ${theme.media.desktop} {
+    width: 40vw;
   }
 `;
+
+const imageWrapCSS =
+  (aspectRatio: number, maxWidth?: number) => (theme: Theme) =>
+    css`
+      position: relative;
+      max-width: ${maxWidth ? `${maxWidth}%` : "100%"};
+      width: 100%;
+      aspect-ratio: ${aspectRatio};
+      
+
+      ${theme.media.desktopAndTablet} {
+        /* max-width: ${getRem(600)}; */
+        margin: 0;
+      }
+    `;
