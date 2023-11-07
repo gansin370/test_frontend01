@@ -7,8 +7,13 @@ declare module "@emotion/react" {
   export interface Theme extends ThemeType {}
 }
 
-declare module 'react' {
+declare module "react" {
   interface Attributes {
-    css?: Interpolation<Theme>
+    css?: Interpolation<Theme>;
   }
+}
+
+declare module "*.mp4" {
+  const src: string;
+  export default src;
 }

@@ -1,3 +1,3 @@
 export default function InquiryPage() {
-  return <div>현재 개발 중인 페이지 입니다.</div>;
+  return <div>추후 서비스 예정입니다</div>;
 }

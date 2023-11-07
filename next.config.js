@@ -24,6 +24,20 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(mov|mp4)$/i,
+      use: [
+        {
+          loader: "file-loader",
+        },
+      ],
+    });
+    return config;
+  },
 };
-
 module.exports = nextConfig;
+
+// const withVideos = require("next-videos");
+
+// module.exports = withVideos();

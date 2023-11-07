@@ -193,6 +193,7 @@ function ChatPage() {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedData, setSelectedData] = useState<ApartmentData | null>(null);
+  const videoSrc = "/api/video";
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -289,15 +290,14 @@ function ChatPage() {
           {data.videoUrl && showVideo && (
             <div style={{ marginBottom: "20px" }}>
               <video
-                style={{
-                  width: "400px",
-                  height: "300px",
-                }}
+                style={{ width: "80%" }}
                 autoPlay
                 loop
                 muted
-                src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
-                playsInline // iOS에서 전체 화면으로 자동 재생을 방지
+                src={
+                  "https://d22mbkaaqujaqr.cloudfront.net/videos/ua_metaverse_spacevideo.mp4"
+                }
+                playsInline
                 preload="auto"
               >
                 동영상을 지원하지 않는 브라우저입니다.
@@ -655,3 +655,4 @@ const sendButtonCSS = css`
 `;
 
 export default withAuth(ChatPage);
+// export default ChatPage;

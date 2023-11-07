@@ -8,7 +8,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TransactionType } from "./EnterTransactionTypeView";
 import ProgressBar from "../ProgressBar";
-import { createApartment } from "@/apis/apartment";
+import { createApartment } from "@/api/apartment";
 import LoadingSpinner from "../LoadingSpinner";
 import { useRouter } from "next/router";
 import { ROUTES } from "@/constants/route";
