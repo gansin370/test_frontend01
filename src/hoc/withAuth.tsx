@@ -8,12 +8,12 @@ export default function withAuth<P extends object>(
   Component: ComponentType<P>
 ) {
   const WrappedComponent = (props: P): ReactElement => {
-    const { user } = useUserStore();
+    // const { user } = useUserStore();
     const { token } = useToken();
     const router = useRouter();
 
     useEffect(() => {
-      if (!user || !token) {
+      if (!token) {
         if (
           confirm("로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?")
         ) {
@@ -22,7 +22,7 @@ export default function withAuth<P extends object>(
           router.back();
         }
       }
-    }, [user, token]);
+    }, [token]);
     return <Component {...props} />;
   };
   return WrappedComponent;

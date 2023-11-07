@@ -5,7 +5,7 @@ import oaRequest from "@/network/oaRequest";
 import { axiosMethod } from "@/network/axiosUtils";
 
 export default function useInitialize() {
-  const { token } = useToken();
+  const { token, removeToken } = useToken();
   const { setUser } = useUserStore();
   useEffect(() => {
     if (token) {
@@ -13,9 +13,13 @@ export default function useInitialize() {
       oaRequest<User>({
         method: axiosMethod.GET,
         url: "/auth/info",
-      }).then((res) => {
-        setUser(res.data);
-      });
+      })
+        .then((res) => {
+          setUser(res.data);
+        })
+        .catch((err) => {
+          removeToken();
+        });
     }
   }, []);
 
