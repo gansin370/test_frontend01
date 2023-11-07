@@ -66,6 +66,21 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
     URL.createObjectURL(image)
   );
 
+  const getVideoUrl = () => {
+    if (!roomSize) return;
+    if (10 <= roomSize && roomSize <= 19 && bay === 1) {
+      return "https://d22mbkaaqujaqr.cloudfront.net/videos/10_19_1bay.mp4";
+    }
+
+    if (30 <= roomSize && roomSize <= 35 && bay === 2) {
+      return "https://d22mbkaaqujaqr.cloudfront.net/videos/30_35_2bay.mp4";
+    }
+
+    if (30 <= roomSize && roomSize <= 35 && bay === 4) {
+      return "https://d22mbkaaqujaqr.cloudfront.net/videos/30_35_4bay.mp4";
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -134,7 +149,7 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
           advantages: advantage,
           introduction: "소개소개",
           availableDate: availableMoveInDate,
-          videoUrl: video?.url,
+          videoUrl: getVideoUrl(),
         },
         images: {
           roomImages,
@@ -279,31 +294,7 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
           onClick={() => onEdit(RegisterProcess.ENTER_ROOM_IMAGES)}
         />
       )}
-      <div
-        css={infoColumnCSS}
-        onClick={() => onEdit(RegisterProcess.SELECT_VIDEO)}
-      >
-        <div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
-              marginBottom: getRem(18),
-            }}
-          >
-            <span>메타버스 비디오</span>
-            <FontAwesomeIcon icon={faChevronRight} color="#828282" />
-          </div>
 
-          {video && (
-            <video css={videoCSS} autoPlay loop muted>
-              <source src={video.url} type="video/mp4" />
-            </video>
-          )}
-        </div>
-      </div>
       <InfoRow
         title="방향"
         content={roomDirection ?? ""}

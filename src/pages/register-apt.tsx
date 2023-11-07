@@ -77,8 +77,6 @@ function RegisterAptPage() {
         return !transactionType || transactionType.length === 0;
       case RegisterProcess.ENTER_ROOM_IMAGES:
         return !roomImages || roomImages?.length < 3;
-      case RegisterProcess.SELECT_VIDEO:
-        return !video;
       case RegisterProcess.SELECT_ROOM_DIRECTION:
         return !roomDirection;
       case RegisterProcess.ENTER_FACILITY:
@@ -146,7 +144,6 @@ function RegisterAptPage() {
         <EnterTransactionTypeView />
       )}
       {process === RegisterProcess.ENTER_ROOM_IMAGES && <EnterRoomImageView />}
-      {process === RegisterProcess.SELECT_VIDEO && <SelectVideoView />}
       {process === RegisterProcess.SELECT_ROOM_DIRECTION && (
         <SelectRoomDirectionView />
       )}
@@ -267,7 +264,6 @@ export enum RegisterProcess {
   ENTER_LOCATION_SUMMARY = "ENTER_LOCATION_SUMMARY",
   ENTER_TRANSACTION_TYPE = "ENTER_TRANSACTION_TYPE",
   ENTER_ROOM_IMAGES = "ENTER_ROOM_IMAGES",
-  SELECT_VIDEO = "SELECT_VIDEO",
   SELECT_ROOM_DIRECTION = "SELECT_ROOM_DIRECTION",
   ENTER_EXTRA_INFO = "ENTER_EXTRA_INFO",
   ENTER_AVAILABLE_MOVE_IN_DATE = "ENTER_AVAILABLE_MOVE_IN_DATE",

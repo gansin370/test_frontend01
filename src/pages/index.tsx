@@ -23,17 +23,18 @@ export default function Home() {
       <main>
         <div css={titleWrapCSS}>
           <h1 css={titleCSS}>
-            아파트 직거래{" "}
-            <br />
+            아파트 직거래 <br />
             플랫폼 서비스!
           </h1>
         </div>
 
         <div css={mobileAndTabletCSS}>
           <div css={mediaContainerCSS}>
-            <video css={videoCSS} autoPlay loop muted>
+            <video css={videoCSS} autoPlay loop muted playsInline preload="auto">
               <source
-                src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
+                src={
+                  "https://d22mbkaaqujaqr.cloudfront.net/videos/30_35_4bay.mp4"
+                }
                 type="video/mp4"
               />
             </video>
@@ -66,15 +67,19 @@ export default function Home() {
                 <Image src={MainApartment} alt="메인 아파트" fill />
               </div>
               <div css={imageContainerCSS}>
-                <video css={desktopVideoCSS} autoPlay loop muted>
+                <video css={desktopVideoCSS} autoPlay loop muted playsInline preload="auto">
                   <source
-                    src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
+                    src={
+                      "https://d22mbkaaqujaqr.cloudfront.net/videos/30_35_4bay.mp4"
+                    }
                     type="video/mp4"
                   />
                 </video>
-                <video css={desktopVideoCSS} autoPlay loop muted>
+                <video css={desktopVideoCSS} autoPlay loop muted playsInline preload="auto">
                   <source
-                    src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
+                    src={
+                      "https://d22mbkaaqujaqr.cloudfront.net/videos/10_19_1bay.mp4"
+                    }
                     type="video/mp4"
                   />
                 </video>
