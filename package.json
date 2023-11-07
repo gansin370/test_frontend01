@@ -17,11 +17,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/lodash-es": "^4.17.10",
-<<<<<<< HEAD
     "@types/mime-types": "^2.1.4",
     "@types/react-slick": "^0.23.11",
-=======
->>>>>>> 36d9ed99dc866eb2733fe4f715eb49ff9f09b61b
     "axios": "^1.6.0",
     "cookies-next": "^4.0.0",
     "dayjs": "^1.11.10",
