@@ -33,7 +33,7 @@ export default function Home() {
           <div css={mediaContainerCSS}>
             <video css={videoCSS} autoPlay loop muted>
               <source
-                src="https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4"
+                src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
                 type="video/mp4"
               />
             </video>
@@ -62,10 +62,9 @@ export default function Home() {
         >
           <div css={desktopCSS}>
             <div css={mediaContainerCSS}>
-              {/* <Image src={Interior1} alt="사진" css={videoCSS} /> */}
               <video css={videoCSS} autoPlay loop muted>
                 <source
-                  src="https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4"
+                  src={CLOUD_FRONT_URL + "videos/ua_metaverse_spacevideo.mp4"} // 비디오 파일의 경로
                   type="video/mp4"
                 />
               </video>
@@ -78,6 +77,24 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div css={imageRowCSS}>
+          <div css={rowImageItemCSS(1 / 1)}>
+            <Image src={Intro1} alt="사진" fill />
+          </div>
+          <div css={rowImageItemCSS(1 / 0.8)}>
+            <Image src={Intro2} alt="사진" fill />
+          </div>
+          <div
+            css={rowImageItemCSS(1 / 1.2, 25 * 0.67)}
+            style={{ marginLeft: getRem(16) }}
+          >
+            <Image src={Intro3} alt="사진" fill />
+          </div>
+          <div css={rowImageItemCSS(1 / 0.78)}>
+            <Image src={Intro4} alt="사진" fill />
           </div>
         </div>
       </main>
@@ -127,14 +144,6 @@ const mediaContainerCSS = (theme: Theme) => css`
 const videoCSS = (theme: Theme) => css`
   width: 100vw;
 
-  /* ${theme.media.tablet} {
-    width: ${getRem(600)};
-  }
-
-  ${theme.media.desktop} {
-    width: ${getRem(900)};
-  } */
-
   ${theme.media.desktopAndTablet} {
     width: 60vw;
   }
@@ -143,9 +152,10 @@ const videoCSS = (theme: Theme) => css`
 const imageContainerCSS = (theme: Theme) => css`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+
+  justify-content: space-between;
   ${theme.media.desktop} {
-    width: 30vw;
+    width: 25vw;
   }
 `;
 
@@ -158,7 +168,7 @@ const imageWrapCSS =
       aspect-ratio: ${aspectRatio};
 
       ${theme.media.desktop} {
-        width: 30vw;
+        width: 25vw;
 
         aspect-ratio: 40/25;
       }
@@ -176,4 +186,18 @@ const desktopCSS = (theme: Theme) => css`
   ${theme.media.desktop} {
     display: block;
   }
+`;
+
+const imageRowCSS = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${getRem(10)};
+  margin-top: ${getRem(25)};
+`;
+
+const rowImageItemCSS = (aspectRatio: number, maxWidth?: number) => css`
+  position: relative;
+  width: ${maxWidth ? maxWidth : 25}%;
+  aspect-ratio: ${aspectRatio};
 `;
