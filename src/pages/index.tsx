@@ -30,21 +30,15 @@ export default function Home() {
 
         <div css={mobileAndTabletCSS}>
           <div css={mediaContainerCSS}>
-            <video
-              css={videoCSS}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-            >
-              <source
-                src={
-                  "https://d22mbkaaqujaqr.cloudfront.net/videos/30_35_4bay.mp4"
-                }
-                type="video/mp4"
-              />
-            </video>
+            <div style={{ aspectRatio: 1 / 0.6 }}>
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/E8nt18KbitQ?si=Mw3WSFU3wf4ugBPk&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=E8nt18KbitQ"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              ></iframe>
+            </div>
             <div css={descCSS}>PC에서 이용하실 길 추천합니다.</div>
             <div css={imageContainerCSS}>
               <div css={imageWrapCSS(1 / 1)}>
@@ -74,36 +68,24 @@ export default function Home() {
                 <Image src={MainApartment} alt="사진" fill />
               </div>
               <div css={imageContainerCSS}>
-                <video
-                  css={desktopVideoCSS}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                >
-                  <source
-                    src={
-                      "https://d22mbkaaqujaqr.cloudfront.net/videos/30_35_4bay.mp4"
-                    }
-                    type="video/mp4"
-                  />
-                </video>
-                <video
-                  css={desktopVideoCSS}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                >
-                  <source
-                    src={
-                      "https://d22mbkaaqujaqr.cloudfront.net/videos/10_19_1bay.mp4"
-                    }
-                    type="video/mp4"
-                  />
-                </video>
+                <div style={{ aspectRatio: 1 / 0.6 }}>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/E8nt18KbitQ?si=Mw3WSFU3wf4ugBPk&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=E8nt18KbitQ"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  ></iframe>
+                </div>
+                <div style={{ aspectRatio: 1 / 0.6 }}>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/_-jwxfqw27Y?si=-UNLLODy00jXc4_q&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=_-jwxfqw27Y"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
@@ -171,9 +153,8 @@ const mediaContainerCSS = (theme: Theme) => css`
 `;
 
 const videoCSS = (theme: Theme) => css`
-  width: 100vw;
-
-  ${theme.media.desktop} {
+  width: 100%;
+  aspect-ratio: 1 / 0.6 ${theme.media.desktop} {
     width: 60vw;
   }
 `;

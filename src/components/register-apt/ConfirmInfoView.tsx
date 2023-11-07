@@ -69,15 +69,15 @@ export default function ConfirmInfoView({ onEdit }: ConfirmInfoViewProps) {
   const getVideoUrl = () => {
     if (!roomSize) return;
     if (10 <= roomSize && roomSize <= 19 && bay === 1) {
-      return "https://d22mbkaaqujaqr.cloudfront.net/videos/10_19_1bay.mp4";
+      return "https://www.youtube.com/embed/_-jwxfqw27Y?si=-UNLLODy00jXc4_q&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=_-jwxfqw27Y";
     }
 
     if (30 <= roomSize && roomSize <= 35 && bay === 2) {
-      return "https://d22mbkaaqujaqr.cloudfront.net/videos/30_35_2bay.mp4";
+      return "https://www.youtube.com/embed/5-dIuLmRZZA?si=FIWPHecOK_5M2cQ1&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=5-dIuLmRZZA";
     }
 
     if (30 <= roomSize && roomSize <= 35 && bay === 4) {
-      return "https://d22mbkaaqujaqr.cloudfront.net/videos/30_35_4bay.mp4";
+      return "https://www.youtube.com/embed/E8nt18KbitQ?si=Mw3WSFU3wf4ugBPk&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=E8nt18KbitQ";
     }
   };
 

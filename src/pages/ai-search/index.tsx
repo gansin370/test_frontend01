@@ -288,39 +288,37 @@ function ChatPage() {
           }}
         >
           {data.videoUrl && showVideo && (
-            <div style={{ marginBottom: "20px" }}>
-              <video
-                style={{ width: "80%" }}
-                autoPlay
-                loop
-                muted
-                src={
-                  "https://d22mbkaaqujaqr.cloudfront.net/videos/ua_metaverse_spacevideo.mp4"
-                }
-                playsInline
-                preload="auto"
+            <div style={{ marginBottom: "20px", aspectRatio: 1 / 0.6 }}>
+              <iframe
+                width="100%"
+                height="100%"
+                src={data.videoUrl}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               >
                 동영상을 지원하지 않는 브라우저입니다.
-              </video>
+              </iframe>
             </div>
           )}
-          <div>
-            <button
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#00baf2",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                marginBottom: "20px",
-              }}
-              onClick={() => setShowVideo(!showVideo)}
-            >
-              {showVideo ? "비디오 숨기기" : "비디오 보기"}
-            </button>
-          </div>
+          {data.videoUrl && (
+            <div>
+              <button
+                style={{
+                  padding: "10px 20px",
+                  backgroundColor: "#00baf2",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  marginBottom: "20px",
+                }}
+                onClick={() => setShowVideo(!showVideo)}
+              >
+                {showVideo ? "비디오 숨기기" : "비디오 보기"}
+              </button>
+            </div>
+          )}
           <div style={{ marginBottom: "20px" }}>
             <strong>아파트 이미지</strong>
             <ImageGallery images={data.apartmentImgs} />
