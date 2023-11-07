@@ -28,29 +28,54 @@ export default function Home() {
           </h1>
         </div>
 
-        <div css={mediaContainerCSS}>
-          <video css={videoCSS} autoPlay loop muted>
-            <source
-              src="https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4"
-              type="video/mp4"
-            />
-          </video>
-          <div css={descCSS}>PC에서 이용하실 길 추천합니다.</div>
-          <div css={imageContainerCSS}>
-            <div css={imageWrapCSS(1 / 1)}>
-              <Image src={Intro1} alt="사진" fill />
+        <div css={mobileAndTabletCSS}>
+          <div css={mediaContainerCSS}>
+            <video css={videoCSS} autoPlay loop muted>
+              <source
+                src="https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div css={descCSS}>PC에서 이용하실 길 추천합니다.</div>
+            <div css={imageContainerCSS}>
+              <div css={imageWrapCSS(1 / 1)}>
+                <Image src={Intro1} alt="사진" fill />
+              </div>
+              <div css={imageWrapCSS(1 / 0.8)}>
+                <Image src={Intro2} alt="사진" fill />
+              </div>
+              <div
+                css={imageWrapCSS(1 / 1.2, 67)}
+                style={{ marginLeft: getRem(16) }}
+              >
+                <Image src={Intro3} alt="사진" fill />
+              </div>
+              <div css={imageWrapCSS(1 / 0.78)}>
+                <Image src={Intro4} alt="사진" fill />
+              </div>
             </div>
-            <div css={imageWrapCSS(1 / 0.8)}>
-              <Image src={Intro2} alt="사진" fill />
-            </div>
-            <div
-              css={imageWrapCSS(1 / 1.2, 67)}
-              style={{ marginLeft: getRem(16) }}
-            >
-              <Image src={Intro3} alt="사진" fill />
-            </div>
-            <div css={imageWrapCSS(1 / 0.78)}>
-              <Image src={Intro4} alt="사진" fill />
+          </div>
+        </div>
+        <div
+          style={{ display: "flex", width: "100%", justifyContent: "center" }}
+        >
+          <div css={desktopCSS}>
+            <div css={mediaContainerCSS}>
+              {/* <Image src={Interior1} alt="사진" css={videoCSS} /> */}
+              <video css={videoCSS} autoPlay loop muted>
+                <source
+                  src="https://ua-apt.s3.ap-northeast-2.amazonaws.com/videos/uaVideo_01.1.mp4"
+                  type="video/mp4"
+                />
+              </video>
+              <div css={imageContainerCSS}>
+                <div css={imageWrapCSS}>
+                  <Image src={Interior1} alt="인테리어 사진" fill />
+                </div>
+                <div css={imageWrapCSS}>
+                  <Image src={Interior2} alt="인테리어 사진" fill />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -119,7 +144,7 @@ const imageContainerCSS = (theme: Theme) => css`
   flex-direction: column;
   /* align-items: center; */
   ${theme.media.desktop} {
-    width: 40vw;
+    width: 30vw;
   }
 `;
 
@@ -130,10 +155,24 @@ const imageWrapCSS =
       max-width: ${maxWidth ? `${maxWidth}%` : "100%"};
       width: 100%;
       aspect-ratio: ${aspectRatio};
-      
 
-      ${theme.media.desktopAndTablet} {
-        /* max-width: ${getRem(600)}; */
-        margin: 0;
+      ${theme.media.desktop} {
+        width: 30vw;
+
+        aspect-ratio: 40/25;
       }
     `;
+
+const mobileAndTabletCSS = (theme: Theme) => css`
+  display: none;
+  ${theme.media.mobileAndTablet} {
+    display: block;
+  }
+`;
+
+const desktopCSS = (theme: Theme) => css`
+  display: none;
+  ${theme.media.desktop} {
+    display: block;
+  }
+`;
