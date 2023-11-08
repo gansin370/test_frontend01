@@ -2,7 +2,7 @@ import { getRem } from "@/styles/commonStyle";
 import { Theme } from "@emotion/react";
 import { css } from "@emotion/react";
 
-import MainApartment from "public/images/apartment-main.png";
+import MainApartment from "public/images/main.png";
 
 import Intro1 from "public/images/intro1.png";
 import Intro2 from "public/images/intro2.png";
