@@ -31,13 +31,21 @@ export default function Home() {
         <div css={mobileAndTabletCSS}>
           <div css={mediaContainerCSS}>
             <div style={{ aspectRatio: 1 / 0.6 }}>
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/E8nt18KbitQ?si=Mw3WSFU3wf4ugBPk&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=E8nt18KbitQ"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              ></iframe>
+              <video
+                css={videoCSS}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+              >
+                <source
+                  src={
+                    "https://d22mbkaaqujaqr.cloudfront.net/videos/homepage_mainvideo.mp4"
+                  }
+                  type="video/mp4"
+                />
+              </video>
             </div>
             <div css={descCSS}>PC에서 이용하실 길 추천합니다.</div>
             <div css={imageContainerCSS}>
@@ -69,22 +77,38 @@ export default function Home() {
               </div>
               <div css={imageContainerCSS}>
                 <div style={{ aspectRatio: 1 / 0.6 }}>
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/E8nt18KbitQ?si=Mw3WSFU3wf4ugBPk&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=E8nt18KbitQ"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  ></iframe>
+                  <video
+                    css={videoCSS}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                  >
+                    <source
+                      src={
+                        "https://d22mbkaaqujaqr.cloudfront.net/videos/homepage_mainvideo.mp4"
+                      }
+                      type="video/mp4"
+                    />
+                  </video>
                 </div>
                 <div style={{ aspectRatio: 1 / 0.6 }}>
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/_-jwxfqw27Y?si=-UNLLODy00jXc4_q&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=_-jwxfqw27Y"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  ></iframe>
+                  <video
+                    css={videoCSS}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                  >
+                    <source
+                      src={
+                        "https://d22mbkaaqujaqr.cloudfront.net/videos/pc_homepage_video_no2.mp4"
+                      }
+                      type="video/mp4"
+                    />
+                  </video>
                 </div>
               </div>
             </div>
