@@ -99,7 +99,7 @@ const callApi = async (text: string): Promise<Message[]> => {
     // "https://api.ua-apt.com/apartment/ai/search"
     const token = getCookie("token");
     const response = await axios.post(
-      "http://localhost:8000/apartment/ai/search",
+      "https://api.ua-apt.com/apartment/ai/search",
       { userRequest: text },
       {
         headers: {
