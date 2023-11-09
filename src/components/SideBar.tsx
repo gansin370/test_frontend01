@@ -27,7 +27,7 @@ export default function SideBar({ open, close }: SideBarProps) {
   const isMounted = useMounted();
   const router = useRouter();
   const { user, setUser } = useUserStore();
-  const { removeToken } = useToken();
+  const { token, removeToken } = useToken();
 
   const handleLogout = () => {
     if (confirm("로그아웃 하시겠습니까?")) {
@@ -59,7 +59,7 @@ export default function SideBar({ open, close }: SideBarProps) {
             ))}
           </nav>
         </div>
-        {!!user ? (
+        {!!token ? (
           <button css={loginButtonCSS} onClick={handleLogout}>
             <FontAwesomeIcon icon={solidUser} />
             <span>로그아웃</span>

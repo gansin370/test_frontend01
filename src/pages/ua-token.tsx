@@ -1,4 +1,6 @@
+import useInitialize from "@/hook/useInitialize";
 import useToken from "@/hook/useToken";
+import { useUserStore } from "@/store/user";
 import { useRouter } from "next/router";
 
 export default function AuthPage() {

@@ -96,9 +96,10 @@ const KakaoMap: React.FC<KakaoMapProps> = ({ lat, lng, hide }) => {
 
 const callApi = async (text: string): Promise<Message[]> => {
   try {
+    // "https://api.ua-apt.com/apartment/ai/search"
     const token = getCookie("token");
     const response = await axios.post(
-      "https://api.ua-apt.com/apartment/ai/search",
+      "http://localhost:8000/apartment/ai/search",
       { userRequest: text },
       {
         headers: {

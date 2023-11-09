@@ -10,13 +10,13 @@ import { faUser as regularUser } from "@fortawesome/free-regular-svg-icons";
 import { useUserStore } from "@/store/user";
 import { navList } from "@/constants/navigation";
 import SideBar from "./SideBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useToken from "@/hook/useToken";
 import { useRouter } from "next/router";
 
 export default function NavigationBar() {
   const { user, setUser } = useUserStore();
-  const { removeToken } = useToken();
+  const { token, removeToken } = useToken();
   const router = useRouter();
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -29,6 +29,10 @@ export default function NavigationBar() {
       router.push("/");
     }
   };
+
+  useEffect(() => {
+    // 클라이언트 측에서만 실행될 코드
+  }, []);
 
   return (
     <div css={containerCSS}>
@@ -47,7 +51,7 @@ export default function NavigationBar() {
         <FontAwesomeIcon icon={faBars} size="lg" color={"#00baf2"} />
       </button>
 
-      {!!user ? (
+      {!!token ? (
         <button css={loginButtonCSS} onClick={handleLogout}>
           <FontAwesomeIcon icon={solidUser} />
           <span>로그아웃</span>

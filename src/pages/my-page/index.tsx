@@ -437,7 +437,7 @@ const ApartmentItem: React.FC<ApartmentItemProps> = ({
       )}
     </div>
   );
-}
+};
 
 const containerCSS = css`
   max-width: ${getRem(500)};
