@@ -104,7 +104,7 @@ export default function Home() {
                   >
                     <source
                       src={
-                        "https://d22mbkaaqujaqr.cloudfront.net/videos/pc_homepage_video_no2.mp4"
+                        "https://d22mbkaaqujaqr.cloudfront.net/videos/pc_homepage_video_02.mp4"
                       }
                       type="video/mp4"
                     />
