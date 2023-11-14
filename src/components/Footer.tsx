@@ -1,11 +1,14 @@
 import { getRem } from "@/styles/commonStyle";
 import { css } from "@emotion/react";
 
+
+
 export default function Footer() {
   return (
     <footer css={footerCSS}>
       <p>샤이닝패스</p>
       <p>서울특별시 강남구 언주로 703 논현동 90-2 </p>
+      <p>dydwo6530@naver.com</p>
       <p>이용약관 | 개인정보처리 방침 | 위치기반 서비스 이용약관</p>
       <p>COPYRIGHT 우리의 아파트. ALLRIGHT RESERVED.</p>
     </footer>

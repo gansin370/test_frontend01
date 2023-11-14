@@ -41,7 +41,7 @@ export default function Home() {
               >
                 <source
                   src={
-                    "https://d22mbkaaqujaqr.cloudfront.net/videos/homepage_mainvideo.mp4"
+                    "https://d22mbkaaqujaqr.cloudfront.net/videos/pc_homepage_video_01.mp4"
                   }
                   type="video/mp4"
                 />
@@ -87,7 +87,7 @@ export default function Home() {
                   >
                     <source
                       src={
-                        "https://d22mbkaaqujaqr.cloudfront.net/videos/homepage_mainvideo.mp4"
+                        "https://d22mbkaaqujaqr.cloudfront.net/videos/pc_homepage_video_01.mp4"
                       }
                       type="video/mp4"
                     />
@@ -104,7 +104,7 @@ export default function Home() {
                   >
                     <source
                       src={
-                        "https://d22mbkaaqujaqr.cloudfront.net/videos/pc_homepage_video_02.mp4"
+                        "https://d22mbkaaqujaqr.cloudfront.net/videos/pc_homepage_video_02_2bay.mp4"
                       }
                       type="video/mp4"
                     />
