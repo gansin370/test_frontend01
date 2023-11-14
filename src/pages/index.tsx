@@ -30,7 +30,7 @@ export default function Home() {
 
         <div css={mobileAndTabletCSS}>
           <div css={mediaContainerCSS}>
-            <div style={{ aspectRatio: 1 / 0.6 }}>
+            <div style={{ aspectRatio: 1 / 0.5 }}>
               <video
                 css={videoCSS}
                 autoPlay
@@ -76,7 +76,7 @@ export default function Home() {
                 <Image src={MainApartment} alt="사진" fill />
               </div>
               <div css={imageContainerCSS}>
-                <div style={{ aspectRatio: 1 / 0.6 }}>
+                <div style={{ aspectRatio: 1 / 0.5 }}>
                   <video
                     css={videoCSS}
                     autoPlay
@@ -93,7 +93,7 @@ export default function Home() {
                     />
                   </video>
                 </div>
-                <div style={{ aspectRatio: 1 / 0.6 }}>
+                <div style={{ aspectRatio: 1 / 0.5 }}>
                   <video
                     css={videoCSS}
                     autoPlay
@@ -180,6 +180,7 @@ const videoCSS = (theme: Theme) => css`
   width: 100%;
   aspect-ratio: 1 / 0.6 ${theme.media.desktop} {
     width: 60vw;
+   
   }
 `;
 
