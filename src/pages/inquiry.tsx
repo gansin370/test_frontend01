@@ -82,7 +82,7 @@ export default function InquiryPage() {
         left: 320px;
       }
     .buildingBackground {
-        background-color: rgb(248, 249, 255);
+        background-color: rgb(255, 255, 255);
         border-radius: 2px;
         border: 1px solid gray
         ;
@@ -94,7 +94,7 @@ export default function InquiryPage() {
        
       }
       .buildingBackground2 {
-        background-color: rgb(248, 249, 255);
+        background-color: rgb(255, 255, 255);
         border-radius: 2px;
         border: 1px solid rgb(68, 68, 68);
         width: 1500px;
@@ -106,7 +106,7 @@ export default function InquiryPage() {
       }
     
       .buildingBackground3 {
-        background-color: rgb(228, 249, 255);
+        background-color: rgb(255, 255, 255);
         border-radius: 2px;
         border: 1px solid black;
         width: 1500px;
