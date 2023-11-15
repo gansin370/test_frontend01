@@ -630,6 +630,8 @@ const inputContainerCSS = css`
   max-width: 600px; // 최대 너비 설정
   margin-left: auto; // 자동 마진으로 가운데 정렬
   margin-right: auto; // 자동 마진으로 가운데 정렬
+  margin-bottom: 50px;
+
   background: white; // 입력 필드 배경 색
 `;
 
