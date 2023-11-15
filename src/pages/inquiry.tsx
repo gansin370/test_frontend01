@@ -19,7 +19,7 @@ export default function InquiryPage() {
            <img src="/images/phone.png" alt="Phone" className="phonePicture" />
            <ul>
              <li className='call_style'>
-               <h3>전화문의 </h3> <h3/>010-5590-0482
+               <h3>전화문의 </h3><div></div><h3/>010-5590-0482
              </li>
            </ul>
          </div>
@@ -39,6 +39,9 @@ export default function InquiryPage() {
     }
     
     const imgStyle = css`
+    .call_style h3{
+      padding-top:20px
+    }
     .document_background{
      
      
