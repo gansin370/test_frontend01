@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div css={containerCSS}>
       <Head>
-        <title>우리의 아파트</title>
+        <title>카카오 로그인 실험</title>
       </Head>
       <main>
         <div css={titleWrapCSS}>
