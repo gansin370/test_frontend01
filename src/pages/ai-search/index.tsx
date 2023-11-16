@@ -600,7 +600,7 @@ const chatContainerCSS = css`
   align-items: center; // 가로축 중앙 정렬
   width: 100%;
   max-width: 600px; // 최대 가로 크기 설정
-  height: 100%;
+  height: 780px; //100% 이였음 
   margin-top: 20px; // 상단 마진
   margin-left: auto; // 가운데 정렬을 위한 설정
   margin-right: auto; // 가운데 정렬을 위한 설정
@@ -623,6 +623,7 @@ const inputContainerCSS = css`
   display: flex;
   justify-content: space-between;
   padding: 10px;
+
   position: fixed; // 고정 위치
   bottom: 0; // 화면 하단
   left: 0; // 화면 왼쪽
